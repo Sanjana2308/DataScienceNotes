@@ -264,8 +264,31 @@ SELECT product_name, REPLICATE(product_name, 3) AS RepeatedProductName
 FROM Products
 ~~~
 
+15. DATE FUNCTIONS
+~~~sql
+SELECT GETDATE() AS CurrentDate,
+DATEADD(DAY, 10, GETDATE()) AS FutureDate
 
+SELECT DATEADD(YEAR, -22, GETDATE()) AS DateMinus22Years
 
+SELECT DATEDIFF(DAY, '2024-01-01', GETDATE()) AS DaysDifference
+
+SELECT FORMAT(GETDATE(), 'MMMM dd, yyyy') AS FormattedDate
+
+SELECT FORMAT(GETDATE(), 'dd-MMMM-yyyy') AS FormattedDate
+
+SELECT GETDATE() AS CurrentDate
+
+SELECT YEAR(GETDATE()) AS CurrentYear
+
+SELECT MONTH('2024-05-15') AS MonthExtracted
+
+SELECT DAY('2024-05-15') AS DayExtracted
+~~~
+
+__MM__ - Gives Month number (08)
+
+__MMMM__ - Gives full Month name (August)
 
 
 
