@@ -168,6 +168,102 @@ WHERE EXISTS(
 )
 ~~~
 
+### Constraints
+~~~sql
+CREATE TABLE Products(
+	ProductID INT PRIMARY KEY, --Enforces unique ProductID
+	ProductName VARCHAR(100) NOT NULL, --Prevents NULL values for ProductName
+	Category VARCHAR(50) NOT NULL,
+	Price DECIMAL(10, 2) CHECK (Price > 0), --Ensures Price > 0
+	StockQuantity INT DEFAULT 0 --Sets default value 0
+)
+~~~
+
+### Functions
+1. UPPER()
+~~~sql
+SELECT product_name, UPPER(Product_name) AS ProductNameUpperCase
+FROM Products
+~~~
+
+2. LOWER()
+~~~sql
+SELECT product_name, LOWER(Product_name) AS ProductNameUpperCase
+FROM Products
+~~~
+
+3. SUBSTRING()
+~~~sql
+SELECT product_name, SUBSTRING(Product_name, 1, 3) AS ProductNameUpperCase
+FROM Products
+~~~
+
+4. REPLACE()
+~~~sql
+SELECT product_name, REPLACE(Product_name, 'Phone', 'Device') AS ProductNameUpperCase
+FROM Products
+~~~
+
+5. LEN()
+~~~sql
+SELECT product_name, LEN(Product_name) AS ProductNameUpperCase
+FROM Products
+~~~
+
+6. LTRIM()
+~~~sql
+SELECT product_name, LTRIM(RTRIM(Product_name)) AS ProductNameUpperCase
+FROM Products
+~~~
+
+7. RTRIM()
+~~~sql
+SELECT product_name, LTRIM(RTRIM(Product_name)) AS ProductNameUpperCase
+FROM Products
+~~~
+
+8. CHARINDEX()
+~~~sql
+SELECT product_name, CHARINDEX('e',Product_name) AS PositionOfE
+FROM Products
+~~~
+
+9. CONCAT()
+~~~sql
+SELECT product_name, product_id, CONCAT(product_name, '-', product_id) AS ProductDetails
+FROM Products
+~~~
+
+10. LEFT()
+~~~sql
+SELECT product_name, LEFT(product_name, 5)AS ShortName
+FROM Products
+~~~
+
+11. RIGHT()
+~~~sql
+SELECT product_name, RIGHT(product_name, 5)AS LastCharacters
+FROM Products
+~~~
+
+12. REVERSE()
+~~~sql
+SELECT product_name, REVERSE(product_name) AS ReversedName
+FROM Products
+~~~
+
+13. FORMAT()
+~~~sql
+SELECT product_name, FORMAT(price, 'N2') AS FormattedPrice
+FROM Products
+~~~
+
+14. REPLICATE()
+~~~sql
+SELECT product_name, REPLICATE(product_name, 3) AS RepeatedProductName
+FROM Products
+~~~
+
 
 
 
