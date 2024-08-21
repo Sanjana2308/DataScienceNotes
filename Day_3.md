@@ -290,6 +290,11 @@ __MM__ - Gives Month number (08)
 
 __MMMM__ - Gives full Month name (August)
 
+Find the number of months since your birthday
+
+~~~sql
+SELECT DATEDIFF(MONTH, '2023-08-23', GETDATE()) AS MonthsDiff
+~~~
 
 
 
