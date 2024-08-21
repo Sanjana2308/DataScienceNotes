@@ -122,9 +122,52 @@ HAVING SUM(o.Quantity) > 3
 ### Exercises
 ![alt text](Images/3_3.png)
 
-~~~sql
 
+2. 
+~~~sql
+SELECT product_name
+FROM Products
+WHERE product_id IN(
+	SELECT product_id
+	from Orders
+	GROUP BY product_id
+	HAVING COUNT(order_id) > 5
+)
 ~~~
+
+3. 
+~~~sql
+select product_name
+FROM Products p
+WHERE EXISTS(
+	SELECT 1
+	FROM Orders o
+	WHERE o.product_id = p.product_id
+)
+~~~
+
+4. 
+~~~sql
+SELECT product_name
+FROM Products 
+WHERE Price > ALL(
+    SELECT Price
+    FROM Products
+    WHERE Category = 'Accessories'
+)
+~~~
+
+5. 
+~~~sql
+select product_name
+FROM Products p
+WHERE EXISTS(
+	SELECT 1
+	FROM Orders o
+	WHERE o.product_id = p.product_id
+)
+~~~
+
 
 
 
