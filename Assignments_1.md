@@ -125,13 +125,35 @@ ON p.product_id = o.product_id
 ~~~
 
 4. Write a query to join Employees with Departments and list employee names and their respective department names.
+~~~sql
+SELECT e.Name, d.DepartmentName 
+FROM tblEmployee e
+LEFT JOIN tblDepartment d
+ON e.DepartmentId = d.ID
+~~~
 
-Perform a self-join on an Employees table to show pairs of employees who work in the same department.<br>
+5. Perform a self-join on an Employees table to show pairs of employees who work in the same department.
+~~~sql
+SELECT e1.ID AS EmployeeID1, e1.Name AS EmployeeName1, e2.ID AS EmployeeID2, e2.Name AS EmployeeName2, e1.DepartmentID
+FROM tblEmployee e1
+JOIN tblEmployee e2
+ON e1.DepartmentID = e2.DepartmentID AND e1.ID < e2.ID
+ORDER BY e1.DepartmentID, e1.ID, e2.ID
+~~~
 
 
 ## Subquery Exercises
-Write a query to find products whose price is higher than the average price of all products.<br>
-Retrieve customer names who have placed at least one order by using a subquery.<br>
+1. Write a query to find products whose price is higher than the average price of all products.
+~~~sql
+SELECT * 
+FROM Products
+WHERE price > (
+	SELECT AVG(price)
+	FROM Products
+)
+~~~
+
+2. Retrieve customer names who have placed at least one order by using a subquery.
 Find the top 3 most expensive products using a subquery.<br>
 Write a query to list all employees whose salary is higher than the average salary of their department.<br>
 Use a correlated subquery to find employees who earn more than the average salary of all employees in their department.<br>
