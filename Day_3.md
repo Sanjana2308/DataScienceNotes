@@ -284,6 +284,9 @@ SELECT YEAR(GETDATE()) AS CurrentYear
 SELECT MONTH('2024-05-15') AS MonthExtracted
 
 SELECT DAY('2024-05-15') AS DayExtracted
+
+--The EOMONTH function simplifies this task by directly returning the last day of the month for any specified date.
+SELECT DAY(EOMONTH('1942-02-08')) AS LastDayOfMonth
 ~~~
 
 __MM__ - Gives Month number (08)
@@ -295,6 +298,7 @@ Find the number of months since your birthday
 ~~~sql
 SELECT DATEDIFF(MONTH, '2023-08-23', GETDATE()) AS MonthsDiff
 ~~~
+
 
 
 

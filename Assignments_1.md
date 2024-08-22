@@ -1,17 +1,63 @@
 ## Date Function Exercises<br>
-Calculate the number of months between your birthday and the current date.<br>
-Retrieve all orders that were placed in the last 30 days.
-Write a query to extract the year, month, and day from the current date.<br>
-Calculate the difference in years between two given dates.
-Retrieve the last day of the month for a given date.<br>
+1. Calculate the number of months between your birthday and the current date.
+~~~sql
+SELECT DATEDIFF(MONTH, '2002-08-23', GETDATE())
+~~~
+
+2. Retrieve all orders that were placed in the last 30 days.
+~~~sql
+SELECT * 
+from Orders
+WHERE order_date BETWEEN DATEADD(DAY, -30, GETDATE()) AND GETDATE()
+~~~
+
+3. Write a query to extract the year, month, and day from the current date.
+~~~sql
+SELECT YEAR(GETDATE()) AS Year,
+MONTH(GETDATE()) AS Month,
+DAY(GETDATE()) AS Day
+~~~
+
+4. Calculate the difference in years between two given dates.
+~~~sql
+SELECT DATEDIFF(YEAR, '1896-07-06', '1990-05-02')
+~~~
+
+5. Retrieve the last day of the month for a given date.
+~~~sql
+SELECT DAY(EOMONTH('1942-02-08')) AS LastDayOfMonth
+~~~
 
 
 ## String Function Exercises<br>
-Convert all customer names to uppercase.<br>
-Extract the first 5 characters of each product name.<br>
-Concatenate the product name and category with a hyphen in between.<br>
-Replace the word 'Phone' with 'Device' in all product names.<br>
-Find the position of the letter 'a' in customer names.<br>
+1. Convert all customer names to uppercase.
+~~~sql
+SELECT UPPER(Name) AS UpperCaseNames
+from Customer
+~~~
+
+2. Extract the first 5 characters of each product name.
+~~~sql
+SELECT LEFT(product_name, 5) AS FirstFiveCharacters
+FROM Products 
+~~~
+
+3. Concatenate the product name and category with a hyphen in between.
+~~~sql
+SELECT CONCAT(product_name, '-', Category) AS ConcatenatedProductName
+FROM Products 
+~~~
+
+4. Replace the word 'Phone' with 'Device' in all product names.
+~~~sql
+SELECT REPLACE(product_name,'Phone', 'Device') AS UpdatedProductName
+FROM Products
+~~~
+
+5. Find the position of the letter 'a' in customer names.
+~~~sql
+
+~~~
 
 ## Aggregate Function Exercises<br>
 Calculate the total sales amount for all orders.<br>
