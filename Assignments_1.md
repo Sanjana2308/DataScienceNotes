@@ -91,14 +91,41 @@ FROM Orders
 
 5. Calculate the sum of stock quantities grouped by product category.
 ~~~sql
-
+SELECT COUNT(o.quantity) AS Quantity, p.Category
+FROM Products p 
+JOIN Orders o
+ON o.product_id = p.product_id
+GROUP BY p.Category
 ~~~
 
 ## Join Exercises<br>
-Write a query to join the Customers and Orders tables to display customer names and their order details.<br>
-Perform an inner join between Products and Orders to retrieve product names and quantities sold.<br>
-Use a left join to display all products, including those that have not been ordered.<br>
-Write a query to join Employees with Departments and list employee names and their respective department names.<br>
+1. Write a query to join the Customers and Orders tables to display customer names and their order details.
+~~~sql
+SELECT Name, o.*
+FROM Customer c
+JOIN Orders o
+ON o.order_id = c.OrderId
+~~~
+
+2. Perform an inner join between Products and Orders to retrieve product names and quantities sold.
+~~~sql
+SELECT p.product_name, SUM(o.quantity)
+FROM Products p
+INNER JOIN Orders o
+ON p.product_id = o.product_id
+GROUP BY product_name
+~~~
+
+3. Use a left join to display all products, including those that have not been ordered.
+~~~sql
+SELECT * 
+FROM Products p
+LEFT JOIN Orders o
+ON p.product_id = o.product_id
+~~~
+
+4. Write a query to join Employees with Departments and list employee names and their respective department names.
+
 Perform a self-join on an Employees table to show pairs of employees who work in the same department.<br>
 
 
