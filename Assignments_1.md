@@ -56,15 +56,43 @@ FROM Products
 
 5. Find the position of the letter 'a' in customer names.
 ~~~sql
-
+SELECT CHARINDEX('a', Name) AS PositionOfLetterA
+FROM Customer
 ~~~
 
 ## Aggregate Function Exercises<br>
-Calculate the total sales amount for all orders.<br>
-Find the average price of products in each category.<br>
-Count the number of orders placed in each month of the year.<br>
-Find the maximum and minimum order quantities.<br>
-Calculate the sum of stock quantities grouped by product category.<br>
+1. Calculate the total sales amount for all orders.
+~~~sql
+SELECT SUM(p.price) AS TotalSalesAmount
+FROM Orders o
+JOIN Products p
+ON o.product_id = p.product_id
+~~~
+
+2. Find the average price of products in each category.
+~~~sql
+SELECT AVG(price) AS AveragePrice
+FROM Products
+GROUP BY Category
+~~~
+
+3. Count the number of orders placed in each month of the year.
+~~~sql
+SELECT MONTH(order_date) AS OrderMonth, COUNT(*) AS ProductCount
+FROM Orders
+GROUP BY MONTH(order_date)
+~~~
+
+4. Find the maximum and minimum order quantities.
+~~~sql
+SELECT MAX(quantity) AS MaximumQuantity, MIN(quantity) AS MinimumQuantity
+FROM Orders
+~~~
+
+5. Calculate the sum of stock quantities grouped by product category.
+~~~sql
+
+~~~
 
 ## Join Exercises<br>
 Write a query to join the Customers and Orders tables to display customer names and their order details.<br>
