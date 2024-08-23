@@ -197,14 +197,76 @@ WHERE Salary >(
 ~~~
 
 ## Grouping and Summarizing Data Exercises<br>
-Group orders by customer and calculate the total amount spent by each customer.<br>
-Group products by category and calculate the average price for each category.<br>
-Group orders by month and calculate the total sales for each month.<br>
-Write a query to group products by category and calculate the number of products in each category.<br>
-Use the HAVING clause to filter groups of customers who have placed more than 5 orders.<br>
+1. Group orders by customer and calculate the total amount spent by each customer.
+~~~sql
+SELECT  c.Name, SUM(c.PurchaseAmt)
+FROM Orders o
+JOIN Customer c
+ON o.order_id = c.OrderId
+GROUP BY c.OrderId, PurchaseAmt, Name
+~~~
+
+2. Group products by category and calculate the average price for each category.
+~~~sql
+SELECT  Category, AVG(price) AS AvgPriceOfCategory
+FROM Products
+GROUP BY Category
+~~~
+
+3. Group orders by month and calculate the total sales for each month.
+~~~sql
+SELECT MONTH(o.order_date) AS Month,  SUM(p.price) AS TotalSales
+FROM Orders o
+JOIN Products p
+ON o.product_id = p.product_id
+GROUP BY MONTH(o.order_date)
+~~~
+
+4. Write a query to group products by category and calculate the number of products in each category.
+~~~sql
+SELECT Category, COUNT(product_name) AS NumberOfProducts
+FROM Products
+GROUP BY Category
+~~~
+
+5. Use the HAVING clause to filter groups of customers who have placed more than 5 orders.
+~~~sql
+SELECT customer_id, COUNT(order_id) AS total_orders
+FROM orders
+GROUP BY customer_id
+HAVING COUNT(order_id) > 5;
+~~~
 
 
 ## Set Operations (UNION, INTERSECT, EXCEPT)<br>
-Write a query to combine the results of two queries that return the names of customers from different tables using UNION.<br>
-Find products that are in both the Electronics and Accessories categories using INTERSECT.<br>
-Write a query to find products that are in the Electronics category but not in the Furniture category using EXCEPT.<br>
+1. Write a query to combine the results of two queries that return the names of customers from different tables using UNION.
+~~~sql
+SELECT Name
+FROM Customer
+UNION
+SELECT Name
+FROM Customer
+JOIN Orders
+ON Customer.OrderId = Orders.order_id
+~~~
+
+2. Find products that are in both the Electronics and Accessories categories using INTERSECT.
+~~~sql
+SELECT product_name
+FROM Products
+WHERE Category LIKE 'Electronics' INTERSECT
+SELECT product_name
+FROM Products
+WHERE Category LIKE 'Accessories'
+~~~
+
+3. Write a query to find products that are in the Electronics category but not in the Furniture category using EXCEPT.
+~~~sql
+SELECT product_name
+FROM Products
+WHERE Category LIKE 'Electronics' 
+EXCEPT
+SELECT product_name
+FROM Products
+WHERE Category LIKE 'Furniture'
+~~~

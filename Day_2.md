@@ -236,7 +236,7 @@ WHERE user_id IN(
 )
 ~~~
 
-### Union
+### SET Operations
 1. __UNION__<br>
 ~~~sql
 SELECT product_name FROM Products Where price > 500
