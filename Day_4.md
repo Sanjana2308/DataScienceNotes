@@ -155,3 +155,21 @@ END;
 EXEC DeleteByValue @ProductID = 11;
 ~~~
 
+### Procedure Giving output
+~~~sql
+CREATE PROCEDURE GetTotalProductsInCategory
+	@Category VARCHAR(50),
+	@TotalProducts INT OUTPUT
+AS
+BEGIN
+	SELECT @TotalProducts = COUNT(*)
+	FROM Products
+	WHERE Category = @Category;
+END;
+
+DECLARE @Total INT;
+EXEC GetTotalProductsInCategory @Category = 'Accessories', @TotalProducts = @Total OUTPUT;
+SELECT @Total AS TotalProductsInCategory; 
+~~~
+
+
