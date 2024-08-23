@@ -154,10 +154,47 @@ WHERE price > (
 ~~~
 
 2. Retrieve customer names who have placed at least one order by using a subquery.
-Find the top 3 most expensive products using a subquery.<br>
-Write a query to list all employees whose salary is higher than the average salary of their department.<br>
-Use a correlated subquery to find employees who earn more than the average salary of all employees in their department.<br>
+~~~sql
+SELECT ID, Name 
+FROM Customer
+WHERE OrderId IN (
+	SELECT OrderId
+	FROM Orders
+)
+~~~
 
+3. Find the top 3 most expensive products using a subquery.
+~~~sql
+SELECT *
+FROM Products
+WHERE price IN(
+	SELECT TOP 3 price
+	FROM Products
+	ORDER BY price DESC
+)
+~~~
+
+4. Write a query to list all employees whose salary is higher than the average salary of their department.
+~~~sql
+SELECT ID, Name, Gender, Salary
+FROM tblEmployee e1
+WHERE Salary >(
+	SELECT AVG(Salary)
+	FROM tblEmployee
+	WHERE e1.DepartmentId = DepartmentId
+)
+~~~
+
+5. Use a correlated subquery to find employees who earn more than the average salary of all employees in their department
+~~~sql
+SELECT ID, Name, Gender, Salary
+FROM tblEmployee e1
+WHERE Salary >(
+	SELECT AVG(e2.Salary)
+	FROM tblEmployee e2
+	WHERE e1.DepartmentId = e2.DepartmentId
+)
+~~~
 
 ## Grouping and Summarizing Data Exercises<br>
 Group orders by customer and calculate the total amount spent by each customer.<br>
