@@ -238,44 +238,176 @@ EXEC AdjustStock @ProductID = 1, @Adjustment = 5; --Increase stock by 5
 EXEC AdjustStock @ProductID = 1, @Adjustment = -3; --Decrease stock by 3
 ~~~
 
-## Assessment
+## Coding Assessment
 1. Hands-on Exercise: Filtering Data using SQL Queries
 Retrieve all products from the Products table that belong to the category 'Electronics' and have a price greater than 500.
+~~~sql
+select * 
+FROM Products 
+WHERE Category = 'Electronics' AND price > 500
+~~~
 
 2. Hands-on Exercise: Total Aggregations using SQL Queries
 Calculate the total quantity of products sold from the Orders table.
+~~~sql
+SELECT SUM(Quantity) AS TotalQuantitySold
+FROM Orders
+~~~
 
 3. Hands-on Exercise: Group By Aggregations using SQL Queries
 Calculate the total revenue generated for each product in the Orders table.
+~~~sql
+SELECT SUM(TotalAmount) AS TotalRevenueGenerated
+FROM Orders
+~~~
 
 4. Hands-on Exercise: Order of Execution of SQL Queries
 Write a query that uses WHERE, GROUP BY, HAVING, and ORDER BY clauses and explain the order of execution.
+~~~sql
+SELECT CustomerID, SUM(TotalAmount) AS TotalSpent
+FROM Orders
+WHERE OrderDate >= '2024-07-23'
+GROUP BY CustomerID
+HAVING SUM(TotalAmount) > 50000
+ORDER BY TotalSpent DESC
+~~~
 
 5. Hands-on Exercise: Rules and Restrictions to Group and Filter Data in SQL Queries
 Write a query that corrects a violation of using non-aggregated columns without grouping them.
+~~~sql
+--Wrong Code
+SELECT ProductID, Category, SUM(price) AS CategoryPrice
+FROM Products
+GROUP BY Category
+
+--Corrected code
+SELECT MAX(ProductID) AS ProductID, Category, SUM(price) AS CategoryPrice
+FROM Products
+GROUP BY Category
+~~~
 
 6. Hands-on Exercise: Filter Data based on Aggregated Results using Group By and Having
 Retrieve all customers who have placed more than 5 orders using GROUP BY and HAVING clauses.
+~~~sql
+SELECT CustomerID, CONCAT(FirstName,' ',LastName)AS Name, Email, PhoneNumber
+FROM Customers
+WHERE CustomerID IN(
+	SELECT CustomerID
+	FROM Orders
+	GROUP BY CustomerID
+	HAVING COUNT(CustomerID) > 5
+)
+~~~
 
 
-1. Basic Stored Procedure
+7. Basic Stored Procedure
 Create a stored procedure named GetAllCustomers that retrieves all customer details from the Customers table.
+~~~sql
+CREATE PROCEDURE GetAllCustomers
+AS
+BEGIN
+	SELECT * FROM Customers;
+END;
 
-2. Stored Procedure with Input Parameter
+exec GetAllCustomers;
+~~~
+
+8. Stored Procedure with Input Parameter
 Create a stored procedure named GetOrderDetailsByOrderID that accepts an OrderID as a parameter and retrieves the order details for that specific order.
+~~~sql
+CREATE Procedure GetOrderDetailsByOrderID
+	@OrderID INT
+AS
+BEGIN
+	SELECT * 
+	FROM Orders
+	WHERE OrderID = @OrderID
+END;
 
-3. Stored Procedure with Multiple Input Parameters
+EXEC GetOrderDetailsByOrderID @OrderID = 1;
+~~~
+
+9. Stored Procedure with Multiple Input Parameters
 Create a stored procedure named GetProductsByCategoryAndPrice that accepts a product Category and a minimum Price as input parameters and retrieves all products that meet the criteria.
+~~~sql
+CREATE PROCEDURE GetProductsByCategoryAndPrice
+	@Category VARCHAR(50),
+	@MinimumPrice DECIMAL(10, 2)
+AS
+BEGIN
+	SELECT *
+	FROM Products
+	WHERE Category = @Category AND Price >= @MinimumPrice
+END;
 
-4. Stored Procedure with Insert Operation
+EXEC GetProductsByCategoryAndPrice @Category = 'Electronics', @MinimumPrice = 20000;
+~~~
+
+10. Stored Procedure with Insert Operation
 Create a stored procedure named InsertNewProduct that accepts parameters for ProductName, Category, Price, and StockQuantity and inserts a new product into the Products table.
+~~~sql
+CREATE PROCEDURE InsertNewProduct
+	@ProductName VARCHAR(50),
+	@Category VARCHAR(50),
+	@Price DECIMAL(10, 2),
+	@StockQuantity INT
+AS
+BEGIN
+	INSERT INTO Products(ProductName, Category, Price, StockQuantity)
+	VALUES
+	(@ProductName, @Category, @Price, @StockQuantity);
+END;
 
-5. Stored Procedure with Update Operation
+EXEC InsertNewProduct @ProductName = 'Head Phones', @Category = 'Electronics', @Price = 2500, @StockQuantity = 10
+~~~
+
+11. Stored Procedure with Update Operation
 Create a stored procedure named UpdateCustomerEmail that accepts a CustomerID and a NewEmail parameter and updates the email address for the specified customer.
+~~~sql
+CREATE PROCEDURE UpdateCustomerEmail 
+	@CustomerID INT,
+	@NewMail VARCHAR(100)
+AS
+BEGIN
+	UPDATE Customers
+	SET Email = @NewMail
+	WHERE CustomerID = @CustomerID;
+END;
 
-6. Stored Procedure with Delete Operation
+EXEC UpdateCustomerEmail @CustomerID = 2, @NewMail = 'mehta.priya@example.com';
+~~~
+
+12. Stored Procedure with Delete Operation
 Create a stored procedure named DeleteOrderByID that accepts an OrderID as a parameter and deletes the corresponding order from the Orders table.
+~~~sql
+CREATE PROCEDURE DeleteOrderById
+	@OrderID INT
+AS
+BEGIN
+	DELETE FROM Orders
+	WHERE OrderID = @OrderID
+END;
 
-7. Stored Procedure with Output Parameter
-Create a stored proced
+EXEC DeleteOrderById @OrderID = 5;
+~~~
+
+13. Stored Procedure with Output Parameter
+Create a stored procedure named GetTotalProductsInCategory that accepts a Category parameter and returns the total number of products in that category using an output parameter.
+~~~sql
+CREATE PROCEDURE GetTotalProductsInCategory
+	@Category VARCHAR(50),
+	@TotalProducts INT OUTPUT
+AS
+BEGIN
+	SELECT @TotalProducts = COUNT(*)
+	FROM Products
+	WHERE Category = @Category;
+END;
+
+DECLARE @Total INT;
+EXEC GetTotalProductsInCategory @Category = 'Electronics', @TotalProducts = @Total OUTPUT;
+SELECT @TOTAL AS TotalProductsInCategory;
+~~~
+
+
 
