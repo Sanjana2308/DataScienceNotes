@@ -294,3 +294,16 @@ FROM CustomerTotals CT
 CROSS JOIN AverageOrder AO
 ORDER BY CT.TotalSpent DESC;
 ~~~
+
+## Data Warehouse
+![alt text](Images/5_1.png)
+
+__ETL__: Extract, Transform and Load
+
+__ODS__: Operational Data Store
+
+__SCM__: Supply Chain Management
+
+__ERP__: Enterprise Resource Planning
+
+
