@@ -306,4 +306,15 @@ __SCM__: Supply Chain Management
 
 __ERP__: Enterprise Resource Planning
 
+### Fact Table and Dimension Table
+![Fact Table and Dimension Table](Images/5_2.png)
+
+### Star Schema
+![Star Schema](Images/5_3.png)
+
+### Snowflake Schema
+![Snowflake Schema](Images/5_3.png)
+
+
+
 
