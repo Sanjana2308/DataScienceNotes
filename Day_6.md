@@ -153,3 +153,19 @@ print("Floor Division: ",floor_division)
 print("Modulus: ", modulus)
 print("Exponentiation: ",exponentiation)
 ```
+
+#### Type casting
+1. String to integer using __int()__
+```python
+num_str = "100"
+num_int = int(num_str)
+
+print("String to Integer: ", num_int)
+```
+2. Convert float to integer using __int()__
+```python
+num_float = 12.34
+num_int_from_float = int(num_float)
+
+print("Float to Integer: ", num_int_from_float)
+```
