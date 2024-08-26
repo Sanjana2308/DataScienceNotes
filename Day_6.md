@@ -454,4 +454,111 @@ joined_words = " ".join(words)
 print("Joining the list to a string: ", joined_words)
 ```
 
+### Dictionaries
+Consists of key-value pairs.
+#### Creating a dictionary
+```python
+# Creating dictionaries
+empty_dict = {}
+person = {
+    "name": "Mark",
+    "age": 30,
+    "email": "mark@example.com"
+}
+print(empty_dict)
+print(person)
+```
+
+#### Accessing values of a dictionary
+```python
+empty_dict = {}
+person = {
+    "name": "Mark",
+    "age": 30,
+    "email": "mark@example.com"
+}
+
+# Accessing Values
+name = person["name"]
+age = person["age"]
+
+print("Name: ", name)
+print("Age: ",age)
+```
+
+#### Modifying values of a dictionary
+```python
+empty_dict = {}
+person = {
+    "name": "Mark",
+    "age": 30,
+    "email": "mark@example.com"
+}
+
+# Modifying Values
+person["age"] = 31
+person["email"] = "mark_new@example.com"
+
+print(person)
+```
+
+#### Adding a new key-value pair
+```python
+empty_dict = {}
+person = {
+    "name": "Mark",
+    "age": 30,
+    "email": "mark@example.com"
+}
+
+# Adding a key value pair
+person["address"] = "123, Main Street"
+
+# Removing a key-value pair
+del person["email"]
+
+print(person)
+```
+
+#### Using dictionary methods
+```python
+empty_dict = {}
+person = {
+    "name": "Mark",
+    "age": 30,
+    "email": "mark@example.com"
+}
+
+# Using dictionary methods
+keys = person.keys()
+values = person.values()
+items = person.items()
+
+print("Keys: ",keys)
+print("Values: ",values)
+print("Items: ",items)
+```
+
+#### Iterating over values or keys
+```python
+empty_dict = {}
+person = {
+    "name": "Mark",
+    "age": 30,
+    "email": "mark@example.com"
+}
+
+# Iterating over keys
+for key in person:
+    print(key)
+
+# Iterating over values
+for value in person.values():
+    print(value)
+
+# Iterating over key-value pairs
+for key, value in person.items():
+    print(key, " :",value)
+```
+
 
