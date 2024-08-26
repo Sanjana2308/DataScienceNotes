@@ -170,6 +170,26 @@ num_int_from_float = int(num_float)
 print("Float to Integer: ", num_int_from_float)
 ```
 
+3. Converting different data types to boolean
+```python
+# Convert integer to boolean
+bool_from_int = bool(1) # True
+
+# Convert zero to boolean
+bool_from_zero = bool(0) # False
+
+# Convert string to boolean
+bool_from_str = bool("Hello") # True
+
+# Convert empty string to boolean
+bool_from_empty_str = bool("") # False
+
+print("Boolean from integer 1: ",bool_from_int)
+print("Boolean from integer 0: ",bool_from_zero)
+print("Boolean from non-empty string: ",bool_from_str)
+print("Boolean from empty string: ",bool_from_empty_str)
+```
+
 ### Comparison Operator
 ```python
 x = 10
@@ -184,7 +204,6 @@ print("x == y", is_equal)
 ```python
 a = True
 b = False
-
 #Logical AND
 and_operation = a and b # a * b -- True * False -- 1 * 0 - False
 
