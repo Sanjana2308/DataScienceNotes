@@ -73,6 +73,49 @@ formatted_greeting_f = f"{greeting}, {name}!"
 print(formatted_greeting_f)
 ```
 
+### Operations on String
 
+1. __strip()__: Eliminates the space arond text
+```python
+text = "  Python Programming  "
+stripped_text = text.strip()
+print(stripped_text)
+```
 
+2. __upper()__: Converts text to uppercase
+```python
+uppercase_text = text.upper()
+print(uppercase_text)
+```
+
+3. __startswith()__: Checks whether the string text starts with the subtring text.
+```python
+starts_with_python = text.startswith("Python")
+print(starts_with_python)
+```
+States false because there is some space in text
+
+After removing spaces using strip()
+```python
+formatted_text = text.strip()
+starts_with_python = formatted_text.startswith("Python")
+print(starts_with_python)
+```
+4. __replace()__: Replaces the given substring with mentioned substring in the main string text
+```python
+replaced_text = text.replace("Programming", "Coding")
+print(replaced_text)
+```
+
+### Integers
+Can be positive, negative or neutral
+```python
+positive_int = 42
+negative_int = -42
+zero = 0
+
+print(positive_int)
+print(negative_int)
+print(zero)
+```
 
