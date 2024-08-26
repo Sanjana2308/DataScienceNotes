@@ -272,3 +272,46 @@ numbers.extend([7, 8, 9])
 print(numbers) # [1, 2, 2.5, 3, 4, 5, 6, 7, 8, 9]
 ```
 
+#### Removing element from list
+```python
+numbers = [1, 2, 3, 4, 5]
+
+numbers.remove(3) # by element
+
+popped_element = numbers.pop(2) # by index
+
+print(numbers) # [1, 2, 4, 5]
+```
+
+#### Slicing elements 
+```python
+numbers = [1, 2, 3, 4, 5]
+
+# Slicing a list
+first_three = numbers[:3]
+middle_two = numbers[1:3]
+last_two = numbers[-2:]
+
+print("First three elements: ",first_three) # [1, 2, 3]
+print("Middle two elements",middle_two) # [2, 3]
+print("Last two elements: ",last_two) # [4, 5]
+```
+
+#### Printing elements of a list 
+```python
+numbers = [1, 2, 3, 4, 5]
+
+# Iterating over a list
+for num in numbers:
+    print(num)
+```
+
+#### List Comprehension
+```python
+numbers = [1, 2, 3, 4, 5]
+
+# List Comprehension
+# Creating a list of squares
+squares = [x**2 for x in range(6)]
+print(squares) # [0, 1, 4, 9, 16, 25]
+```
