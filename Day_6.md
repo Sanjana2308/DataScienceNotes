@@ -217,3 +217,18 @@ print("a AND b: ",and_operation)
 print("a OR b: ",or_operation)
 print("NOT a: ",not_operation)
 ```
+
+## Data Structures
+
+### Lists
+1. It is a collection of elements.
+2. We can have same or different datatypes in a list
+```python
+empty_list = []
+numbers = [1, 2, 3, 4, 5]
+mixed_list = [1, 'Hello', 3.14, True]
+
+print(empty_list)
+print(numbers)
+print(mixed_list)
+```
