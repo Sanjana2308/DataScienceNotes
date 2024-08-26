@@ -316,6 +316,142 @@ squares = [x**2 for x in range(6)]
 print(squares) # [0, 1, 4, 9, 16, 25]
 ```
 
+## Hands-on Exercises
+1. Create a List
+Create a list called fruits with the following items: "apple", "banana", "cherry", "date", and "elderberry".
+Print the list.
+```python
+fruits = ["apple", "banana", "cherry", "date", "elderberry"]
+print(fruits)
+```
 
+2. Access List Elements
+Print the first and last items from the fruits list.
+Print the second and fourth items from the list.
+```python
+first_element = fruits[0]
+last_element = fruits[-1]
+second_element = fruits[1]
+fourth_element = fruits[3]
+print("First Element: ",first_element)
+print("Last Element: ",last_element)
+print("Second Element: ",second_element)
+print("Fourth Element: ",fourth_element)
+```
+
+3. Modify a List
+Replace "banana" in the fruits list with "blueberry".
+Print the modified list.
+```python
+fruits[1] = "blueberry"
+print(fruits)
+```
+
+4. Add and Remove Elements
+Append "fig" and "grape" to the fruits list.
+Remove "apple" from the list.
+Print the final list.
+```python
+fruits.extend(["fig", "grape"])
+fruits.remove("apple")
+
+print(fruits)
+```
+
+5. Slice a List
+Slice the first three elements from the fruits list and assign them to a new list called first_three_fruits.
+Print first_three_fruits.
+```python
+first_three_fruits = fruits[:3]
+print(first_three_fruits)
+```
+
+6. Find List Length
+Find and print the length of the fruits list.
+```python
+length_of_list = len(fruits)
+print(length_of_list)
+```
+
+7. List Concatenation
+Create a second list called vegetables with the following items: "carrot", "broccoli", "spinach".
+Concatenate the fruits and vegetables lists into a new list called food.
+Print the food list.
+```python
+vegetables = ["carrot", "broccoli", "spinach"]
+food = fruits + vegetables
+print(food)
+```
+
+8. Loop Through a List
+Loop through the fruits list and print each item on a new line.
+```python
+for fruit in fruits:
+    print(fruit)
+```
+
+9. Check for Membership
+Check if "cherry" and "mango" are in the fruits list. Print a message for each check.
+```python
+if "cherry" in fruits:
+    print("Cherry is present")
+else:
+    print("Cherry is not present")
+
+if " mango" in fruits:
+    print("Mango is present")
+else:
+    print("Mango is not present")
+```
+
+10. List Comprehension
+Use list comprehension to create a new list called fruit_lengths that contains the lengths of each item in the fruits list.
+Print the fruit_lengths list.
+```python
+fruit_lengths = [len(fruit) for fruit in fruits]
+print(fruit_lengths)
+```
+
+11. Sort a List
+Sort the fruits list in alphabetical order and print it.
+Sort the fruits list in reverse alphabetical order and print it.
+```python
+fruits.sort()
+print("Fruits in alphabetical order: ",fruits)
+fruits.sort(reverse=True)
+print("Fruits in reverse alphabetical order: ",fruits)
+```
+
+12. Nested Lists
+Create a list called nested_list that contains two lists: one with the first three fruits and one with the last three fruits.
+Access the first element of the second list inside nested_list and print it.
+```python
+nested_list = [fruits[:3], [fruits[-3:]]]
+print(nested_list)
+```
+
+13. Remove Duplicates
+Create a list called numbers with the following elements: [1, 2, 2, 3, 4, 4, 4, 5].
+Remove the duplicates from the list and print the list of unique numbers.
+```python
+numbers = [1, 2, 2, 3, 4, 4, 4, 5]
+print("Original list: ",numbers)
+result = []
+[result.append(n) for n in numbers if n not in result]
+print(result)
+```
+
+14. Split and Join Strings
+Split the string "hello, world, python, programming" into a list called words using the comma as a delimiter.
+Join the words list back into a string using a space as the separator and print it.
+```python
+str = "hello, world, python, programming"
+# Splitting the string to a list
+words = str.split(",")
+print("Splitting the string to a list: ",words)
+
+joined_words = " ".join(words)
+print("Joining the list to a string: ", joined_words)
+```
 
 
