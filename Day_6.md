@@ -232,3 +232,43 @@ print(empty_list)
 print(numbers)
 print(mixed_list)
 ```
+
+#### Accessing Elements in a List
+```python
+numbers = [1, 2, 3, 4, 5]
+
+first_element = numbers[0]
+third_element = numbers[2]
+last_element = numbers[-1]
+
+print("First Element: ", first_element)
+print("Third Element: ",third_element)
+print("Last Element: ",last_element)
+```
+
+#### Modifying Elements in a List
+```python
+numbers = [1, 2, 3, 4, 5]
+
+numbers[0] = 10
+numbers[2] = 30
+
+print(numbers)
+```
+
+#### Adding elements in the list
+```python
+numbers = [1, 2, 3, 4, 5]
+
+# Add elements at the end of list
+numbers.append(6)
+
+# Insert elements in the list
+numbers.insert(2, 2.5)
+
+# Adding multiple elements at the end of list
+numbers.extend([7, 8, 9])
+
+print(numbers) # [1, 2, 2.5, 3, 4, 5, 6, 7, 8, 9]
+```
+
