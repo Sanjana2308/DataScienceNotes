@@ -1,12 +1,12 @@
 # Day 7
 
 ## Hands-on Exercise - Dictionary
-1. Create a Dictionary
-    1. Create a dictionary called `person` with the following key-value pairs:
+1. Create a Dictionary<br>
+    1.1. Create a dictionary called `person` with the following key-value pairs:
    - Name: "Alice"
    - Age: 25
-   - City: "New York"
-    2. Print the dictionary.
+   - City: "New York"<br>
+    1.2. Print the dictionary.
 ```python
 person = {
    "Name": "Alice",
@@ -154,3 +154,31 @@ for word in words:
    word_counts[word] = word_counts.get(word, 0) + 1
 print(word_counts)
 ```
+
+## Tuples
+Used for correlated values
+
+#### Creating a tuple
+```python
+colors = ("red", "green", "blue")
+```
+
+#### Accessing values of tuple
+```python
+print("First color: ", colors[0])
+print("Last color: ", colors[-1])
+```
+
+#### Length of tuple
+```python
+tuple_length = len(colors)
+print("Length of the tuple: ",tuple_length)
+```
+
+#### Looping through the tuple
+```python
+print("Tuple elements: ")
+for color in colors:
+   print(color)
+```
+
