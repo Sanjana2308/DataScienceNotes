@@ -446,3 +446,79 @@ students = [("Alice", 90), ("Bob", 80), ("Charlie", 85)]
 students.sort(key = lambda x: x[1], reverse=True)
 print("Sorted List", students)
 ```
+
+## Classes and Objects
+1. `Constructor` is called when we create an object of the class.
+2. Class is a blueprint object is where memory is allocated.
+3. `self` is the object of current class
+4. Its is important to mention self in every method present inside class.
+5. self is used to refer an object inside the class but object is created to access the class object outside the class. 
+```python
+# Base class
+class Animal:
+    def __init__(self, name):
+        # name is created directly 
+        self.name = name
+
+    def speak(self):
+        print("Animal Speaks")
+        
+animal = Animal("Bull")
+animal.speak()
+```
+
+### Inheritance
+We write `pass` in overloading method saying that parent class will not implement this method instead child class will.
+```python
+# Base class
+class Animal:
+    def __init__(self, name):
+        # name is created directly
+        self.name = name
+    # I dont want to implement it, the child will implement the method
+    def speak(self):
+        pass
+
+# Derived class inheriting from Animal
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+
+# Creating instance of derived class
+dog = Dog("Buddy")
+
+# Calling the speak method on instances
+print(f"{dog.name} speaks: {dog.speak()}")
+```
+
+#### Multiple Inheritance
+```python
+# Base class
+class Animal:
+    def __init__(self, name):
+        # name is created directly
+        self.name = name
+    # I dont want to implement it, the child will implement the method
+    def speak(self):
+        pass
+
+# Derived class inheriting from Animal
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return "Meow!"
+
+# Creating instance of derived class
+dog = Dog("Buddy")
+cat = Cat("Whiskers")
+
+# Calling the speak method on instances
+print(f"{dog.name} speaks: {dog.speak()}")
+print(f"{cat.name} speaks: {cat.speak()}")
+```
+
+__Real time explanation of Inheritance and pass__
+![alt text](Images/7_1.png)
