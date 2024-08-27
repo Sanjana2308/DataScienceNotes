@@ -157,7 +157,7 @@ print(word_counts)
 
 ## Tuples
 Used for correlated values
-
+Cannot be changed once created
 #### Creating a tuple
 ```python
 colors = ("red", "green", "blue")
@@ -182,3 +182,38 @@ for color in colors:
    print(color)
 ```
 
+## Sets
+Looks like a dictionary
+
+#### Creating a set
+```python
+fruits = {"apple", "banana", "orange"}
+```
+
+#### Adding an element to the set
+```python
+fruits.add("grape")
+```
+
+#### Removing an element from the set
+```python
+fruits.remove("banana")
+```
+
+#### Checking if an element is in the set
+```python
+print("Is 'apple' in the set?", "apple" in fruits)
+print("Is 'banana' in the set?", "banana" in fruits)
+```
+#### Length of the set
+```python
+set_length = len(fruits)
+print("Number of elements in the set: ",set_length)
+```
+
+#### Looping through the set
+```python
+print("Set elements: ")
+for fruit in fruits:
+   print(fruit)
+```
