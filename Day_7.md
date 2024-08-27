@@ -217,3 +217,34 @@ print("Set elements: ")
 for fruit in fruits:
    print(fruit)
 ```
+
+### List of dictionaries
+
+#### Creating a list of dictionaries
+```python
+students = [
+   {"name": "Alice", "age": 20, "grade": "A"},
+   {"name": "Bob", "age": 22, "grade": "B"},
+   {"name": "Charlie", "age": 21, "grade": "C"},
+   {"name": "David", "age": 23, "grade": "B"}
+]
+```
+
+#### Accessing and manipulating individual records
+```python
+print(students[0]["name"]) # Accessing name of first student
+students[1]["age"] = 24 # Modifying the age of the second student
+```
+
+#### Adding a new student record to the list
+```python
+new_student = {"name": "Eve", "age": 19, "grade": "A"}
+students.append(new_student)
+```
+
+#### Iterating through the list of students
+```python
+for student in students:
+   print(f"Name: {student['name']}, Age: {student['age']}, Grade: {student['grade']}")
+```
+
