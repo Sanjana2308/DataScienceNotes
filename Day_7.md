@@ -2,11 +2,11 @@
 
 ## Hands-on Exercise - Dictionary
 1. Create a Dictionary<br>
-    1.1. Create a dictionary called `person` with the following key-value pairs:
+    1. Create a dictionary called `person` with the following key-value pairs:
    - Name: "Alice"
    - Age: 25
    - City: "New York"<br>
-    1.2. Print the dictionary.
+    2. Print the dictionary.
 ```python
 person = {
    "Name": "Alice",
@@ -248,3 +248,201 @@ for student in students:
    print(f"Name: {student['name']}, Age: {student['age']}, Grade: {student['grade']}")
 ```
 
+## Hands-on Exercise - Collections
+
+1. List Operations
+    1. Create a list called `numbers` containing the numbers `1`, `2`, `3`, `4`, and `5`.
+    2. Append the number `6` to the list.
+    3. Remove the number `3` from the list.
+    4. Insert the number `0` at the beginning of the list.
+    5. Print the final list.
+```python
+numbers = [1, 2, 3, 4, 5]
+numbers.append(6)
+numbers.remove(3)
+numbers.insert(0, 0)
+print(numbers)
+```
+2. Tuple Operations
+    1. Create a tuple called `coordinates` containing the elements `10.0`, `20.0`, and `30.0`.
+    2. Access and print the second element of the tuple.
+    3. Try to change the third element of the tuple to `40.0`. What happens?
+```python
+coordinates = (10.0, 20.0, 30.0)
+print(coordinates[1])
+# Error:
+# coordinates[2] = 40.0
+```
+
+3. Set Operations
+    1. Create a set called `fruits` containing `"apple"`, `"banana"`, `"cherry"`.
+    2. Add `"orange"` to the set.
+    3. Remove `"banana"` from the set.
+    4. Check if `"cherry"` is in the set and print a message based on the result.
+    5. Create another set called `citrus` with elements `"orange"`, `"lemon"`, `"lime"`.
+    6. Perform a union of `fruits` and `citrus` and print the result.
+    7. Perform an intersection of `fruits` and `citrus` and print the result.
+```python
+fruits = {"apple", "banana", "cherry"}
+fruits.add("orange")
+fruits.remove("banana")
+print("Is 'cherry' in the set?", "cherry" in fruits)
+
+citrus = {"orange", "Lemon", "Lime"}
+union_set = fruits.union(citrus)
+print(union_set)
+
+intersect_set = fruits.intersection(citrus)
+print(intersect_set)
+```
+
+4. Dictionary Operations
+    1. Create a dictionary called `person` with keys `"name"`, `"age"`, and `"city"`, and values `"John"`, `30`, and `"New York"`, respectively.
+    2. Access and print the `"name"` key from the dictionary.
+    3. Update the `"age"` key to `31`.
+    4. Add a new key-value pair `"email": "john@example.com"` to the dictionary.
+    5. Remove the `"city"` key from the dictionary.
+    6. Print the final dictionary.
+```python
+person = {
+   "Name": "John",
+   "Age": 30,
+   "City": "New York",
+}
+print(person["Name"])
+person["Age"] = 31
+person["email"] = "john@example.com"
+del person["City"]
+print(person)
+```
+
+5. Nested Dictionary
+    1. Create a dictionary called `school` where the keys are student names and the values are dictionaries containing the subjects and their corresponding grades. Example structure:
+    school = {
+       "Alice": {"Math": 90, "Science": 85},
+       "Bob": {"Math": 78, "Science": 92},
+       "Charlie": {"Math": 95, "Science": 88}
+    }
+    2. Print the grade of `"Alice"` in `"Math"`.
+    3. Add a new student `"David"` with grades `"Math": 80` and `"Science": 89`.
+    4. Update `"Bob"`'s `"Science"` grade to 95.
+    5. Print the final `school` dictionary.
+```python
+school = {
+       "Alice": {"Math": 90, "Science": 85},
+       "Bob": {"Math": 78, "Science": 92},
+       "Charlie": {"Math": 95, "Science": 88}
+   }
+print(school["Alice"]["Math"])
+school["David"] = {"Math": 80, "Science": 89}
+school["Bob"]["Math"] = 95
+print(school)
+```
+
+6. List Comprehension
+    1. Given a list of numbers `[1, 2, 3, 4, 5]`, use list comprehension to create a new list where each number is squared.
+    2. Print the new list.
+```python
+numbers = [1, 2, 3, 4, 5]
+number_squared = [num**2 for num in numbers]
+print(number_squared)
+```
+
+7. Set Comprehension
+    1. Create a set comprehension that generates a set of squared numbers from the list `[1, 2, 3, 4, 5]`.
+    2. Print the resulting set.
+```python
+set_number_squared = {num**2 for num in numbers}
+print(set_number_squared)
+```
+
+8. Dictionary Comprehension
+    1. Create a dictionary comprehension that generates a dictionary where the keys are the numbers from `1` to `5`, and the values are the cubes of the keys.
+    2. Print the resulting dictionary.
+```python
+dictionary_of_cubes = {num: num**3 for num in range(1, 6)}
+print(dictionary_of_cubes)
+```
+
+9. Combining Collections
+    1. Create two lists: `keys = ["name", "age", "city"]` and `values = ["Alice", 25, "Paris"]`.
+    2. Use the `zip()` function to combine the `keys` and `values` lists into a dictionary.
+    3. Print the resulting dictionary.
+```python
+keys = ["name", "age", "city"]
+values = ["Alice", 25, "Paris"]
+person =  {key: value for key, value in zip(keys, values)}
+print(person)
+```
+
+10. Count Word Occurrences (Using a Dictionary)
+    1. Write a Python program that takes a string as input and counts the occurrences of each word in the string using a dictionary. Example input:
+    ```python
+    sentence = "the quick brown fox jumps over the lazy dog the fox"
+    ```
+    2. Print the resulting dictionary with word counts.
+```python
+sentence = "the quick brown fox jumps over the lazy dog the fox"
+words = sentence.split()
+word_counts = {}
+for word in words:
+   word_counts[word] = word_counts.get(word, 0) + 1
+print(word_counts)
+```
+
+11. Unique Elements in Two Sets
+    1. Create two sets: `set1 = {1, 2, 3, 4, 5}` and `set2 = {4, 5, 6, 7, 8}`.
+    2. Find and print the unique elements in both sets combined.
+    3. Find and print the common elements between the two sets.
+    4. Find and print the elements that are only in `set1` but not in `set2`.
+```python
+set1 = {1, 2, 3, 4, 5}
+set2 = {4, 5, 6, 7, 8}
+
+unique_elements = set1.union(set2)
+print("Unique Elements: ",unique_elements)
+
+common_elements = set1.intersection(set2)
+print("Common Elements: ",common_elements)
+
+elements_only_in_set1 = set1.difference(set2)
+print("Elements only in Set 1: ", elements_only_in_set1)
+```
+
+12. Tuple Unpacking
+    1. Create a tuple with three elements: `("Alice", 25, "Paris")`.
+    2. Unpack the tuple into three variables: `name`, `age`, and `city`.
+    3. Print the variables to verify the unpacking.
+```python
+person = ("Alice", 25, "Paris")
+name, age, city = person
+print("Name: ",name)
+print("Age: ",age)
+print("City: ",city)
+```
+
+13. Frequency Counter with Dictionary
+    1. Write a Python program that counts the frequency of each letter in a given string using a dictionary. Example string:
+     text = "hello world"
+    2. Print the resulting dictionary with letter frequencies.
+```python
+text = "hello world"
+freqency_counter = {}
+
+for letter in text:
+   if letter in freqency_counter:
+      freqency_counter[letter] += 1
+   else:
+      freqency_counter[letter] = 1
+print("Frequency of Letters: ",freqency_counter)
+```
+
+14. Sorting a List of Tuples
+    1. Given a list of tuples representing students and their grades:
+        students = [("Alice", 90), ("Bob", 80), ("Charlie", 85)]
+    2. Sort the list by grades in descending order and print the sorted list.
+```python
+students = [("Alice", 90), ("Bob", 80), ("Charlie", 85)]
+students.sort(key = lambda x: x[1], reverse=True)
+print("Sorted List", students)
+```
