@@ -316,7 +316,7 @@ squares = [x**2 for x in range(6)]
 print(squares) # [0, 1, 4, 9, 16, 25]
 ```
 
-## Hands-on Exercises
+## Hands-on Exercises - Lists
 1. Create a List
 Create a list called fruits with the following items: "apple", "banana", "cherry", "date", and "elderberry".
 Print the list.
