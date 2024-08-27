@@ -556,6 +556,11 @@ print(amazon_pay.getPayment())
 
 ## File Manipulation
 
+__Modes of File Editing__
+__`w`__ -> write mode <br>
+__`r`__ -> read mode<br>
+__`a`__ -> append mode
+
 1. Opening or Creating & Writing in a file 
 ```python
 # Specify the file path and name
@@ -606,6 +611,90 @@ with open(file_path, "r") as file:
     print(content)
 ```
 
-__w__ -> write mode <br>
-__r__ -> read mode<br>
-__a__ -> append mode
+5. Writing and reading data from a CSV File
+```python
+import csv
+
+file_name = "D:/PythonCode/pythonProject/data.csv"
+
+# Writing data to a csv file
+data = [["Name", "Age"], ["Alice", 25], ["Bob", 30]]
+with open(file_name, "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+
+# Reading data from a csv file
+with open(file_name, "r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+```
+
+`json` data is understandable by almost all languages out there.
+
+6. Writing and Reading data in a JSON file
+```python
+import json
+
+file_name = "D:/PythonCode/pythonProject/data.json"
+
+# Writing data to a JSON file
+data = {"Name": "Alice", "age": 30, "city":"New York"}
+with open(file_name, "w") as file:
+    json.dump(data, file)
+
+# Reading data from a JSON file
+with open(file_name, "r") as file:
+    loaded_data = json.load(file)
+    print(loaded_data)
+```
+
+## Hands-on Exercise - JSON
+
+### JSON Exercises
+
+#### Exercise 1: Reading a JSON File
+1. Create a JSON file named `data.json` with the following content:
+   ```json
+   {
+       "name": "John Doe",
+       "age": 30,
+       "city": "New York",
+       "skills": ["Python", "Machine Learning", "Data Analysis"]
+   }
+   ```
+2. Write a Python script to read and print the contents of the JSON file.
+
+#### Exercise 2: Writing to a JSON File
+1. Create a Python dictionary representing a person's profile:
+   ```python
+   profile = {
+       "name": "Jane Smith",
+       "age": 28,
+       "city": "Los Angeles",
+       "hobbies": ["Photography", "Traveling", "Reading"]
+   }
+   ```
+2. Write a Python script to save this data to a JSON file named `profile.json`.
+
+#### Exercise 3: Converting CSV to JSON
+1. Using the `students.csv` file from the CSV exercises, write a Python script to read the file and convert the data to a list of dictionaries.
+2. Save the list of dictionaries to a JSON file called `students.json`.
+
+#### Exercise 4: Converting JSON to CSV
+1. Using the `data.json` file from Exercise 1, write a Python script to read the JSON data.
+2. Convert the JSON data to a CSV format and write it to a file named `data.csv`.
+
+#### Exercise 5: Nested JSON Parsing
+1. Create a JSON file named `books.json` with the following content:
+   ```json
+   {
+       "books": [
+           {"title": "The Great Gatsby", "author": "F. Scott Fitzgerald", "year": 1925},
+           {"title": "War and Peace", "author": "Leo Tolstoy", "year": 1869},
+           {"title": "The Catcher in the Rye", "author": "J.D. Salinger", "year": 1951}
+       ]
+   }
+   ```
+2. Write a Python script to read the JSON file and print the title of each book.
+
