@@ -164,8 +164,159 @@ df_dropped = df.drop(columns=["City"])
 print(df_dropped)
 ```
 
+### Dropping rows by index
+```python
+import pandas as pd
 
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
 
+df = pd.DataFrame(data)
+
+# Drop the row at index 2 (Vikram)
+df_dropped_row = df.drop(index=2)
+print(df_dropped_row)
+```
+
+### Giving meaning to the DataFrame 
+__apply()__: The `apply` method is used to apply a function to each element of the "Age" column.
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Create a new column 'Seniority' based on the Age
+df['Seniority'] = df['Age'].apply(lambda x: 'Senior' if x >= 35 else 'Junior')
+print(df)
+```
+
+### Grouping columns
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Adding a new column 'Salary'
+df['Salary'] = [50000, 60000, 70000, 80000, 90000]
+
+# Group by 'City' and calculate the average Salary in each city
+df_grouped = df.groupby("City")["Salary"].mean()
+print(df_grouped)
+```
+
+Selects the "Salary" column from the grouped DataFrame.<br>
+Calculates the mean (average) value of the "Salary" column for each group (city). 👇
+```python
+df_grouped = df.groupby("City")["Salary"].mean()
+```
+
+### Adding a particular value to columns
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Adding a new column 'Salary'
+df['Salary'] = [50000, 60000, 70000, 80000, 90000]
+
+# Apply a custom function to the 'Salary' column to add a 10% bonus
+def add_bonus(salary):
+    return salary*1.10
+
+df['Salary_with_Bonus'] = df['Salary'].apply(add_bonus)
+print(df)
+```
+
+Uses the apply method to apply the add_bonus function to each element of the "Salary" column. 👇
+```python
+df['Salary_with_Bonus'] = df['Salary'].apply(add_bonus)
+```
+
+### Merging DataFrames
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Adding a new column 'Salary'
+df['Salary'] = [50000, 60000, 70000, 80000, 90000]
+
+df_new = pd.DataFrame({
+    "Name": ["Amit", "Priya", "Ravi"],
+    "Bonus": [5000, 6000, 7000]
+})
+
+# Merge based on the 'Name' column - it's kind of a left join
+df_merged = pd.merge(df, df_new, on="Name", how="left")
+print(df_merged)
+```
+Output:
+![Output](Images/8_3.png)
+
+The table has null values because in the new DataFrame there are no values present for the `Name` : `Vikram` and `Neha`
+
+### Concatenate DataFrames
+When we need to concatenate the data shoud be exactly of the same structure.
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Adding a new column 'Salary'
+df['Salary'] = [50000, 60000, 70000, 80000, 90000]
+
+df_new = pd.DataFrame({
+    "Name": ["Sonia", "Rahul"],
+    "Age": [29, 31],
+    "City": ["Kolkata", "Hyderabad"],
+    "Salary": [58000, 63000]
+})
+
+# Concatenate the two DataFrames
+df_concat = pd.concat([df, df_new], ignore_index=True)
+print(df_concat)
+```
+
+Using `ignore_index` we are saying to the compiler that ignore the index and give me the DataFrame perfectly.
 
 
 
