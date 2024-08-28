@@ -319,4 +319,46 @@ print(df_concat)
 Using `ignore_index` we are saying to the compiler that ignore the index and give me the DataFrame perfectly.
 
 
+### Exercises
+1. Filter records with Salary > 50000
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Adding a new column 'Salary'
+df['Salary'] = [50000, 60000, 70000, 80000, 90000]
+
+filtered_df = df[df["Salary"] > 50000]
+print(filtered_df)
+```
+
+2. Filter records whose name starts with A
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Adding a new column 'Salary'
+df['Salary'] = [50000, 60000, 70000, 80000, 90000]
+
+filtered_df = df[df["Name"].str.startswith('A')]
+print(filtered_df)
+```
+
+
 
