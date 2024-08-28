@@ -432,7 +432,7 @@ df_grouped = df.groupby("Department")["Salary"].mean()
 print(df_grouped)
 ```
 
-### Displaying first n number of rows, summary information and summary statistics of given data
+### CSV to DataFrame
 Create CSV file employees.csv and convert it into DataFrames.<br>
 CSV file data:
 ```
@@ -447,7 +447,6 @@ Employee_ID,Name,Department,Age,Salary,City
 
 ```python
 import csv
-import pandas
 import pandas as pd
 
 file_name = "D:/PythonCode/pythonProject/employees.csv"
@@ -467,7 +466,10 @@ with open(file_name, "w", newline="") as file:
 # Load the CSV file into a data frame
 df = pd.read_csv(file_name)
 print(df)
+```
 
+1. Displaying first n number of rows, summary information and summary statistics of given data
+```python
 # Display the first three rows
 print(df.head(3))
 
@@ -478,4 +480,93 @@ print(df.info())
 print(df.describe())
 ```
 
+2. Sorting and Filtering rows
+```python
+import csv
+import pandas as pd
 
+file_name = "D:/PythonCode/pythonProject/employees.csv"
+
+# Writing data to CSV file
+data = [["Employee_ID","Name","Department","Age","Salary","City"],
+        [101,"Rajesh","HR",29,70000,"Delhi"],
+        [102,"Meena","IT",35,85000,"Mumbai"],
+        [103,"Suresh","Finance",45,95000,"Bangalore"],
+        [104,"Anita","IT",32,64000,"Chennai"],
+        [105,"Vijay","Finance",50,120000,"Delhi"],
+        [106,"Neeta","HR",28,72000,"Mumbai"]]
+with open(file_name, "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+
+# Load the CSV file into a data frame
+df = pd.read_csv(file_name)
+# print(df)
+
+# Filter rows where Salary is greater than 80000
+high_salary_df = df[df["Salary"] > 80000]
+print(high_salary_df)
+
+# Sort by Age in descending order
+sorted_df = df.sort_values(by="Age", ascending=False)
+print(sorted_df)
+```
+
+### JSON to DataFrame
+```python
+import json
+
+import pandas as pd
+
+file_name = "D:/PythonCode/pythonProject/employees.json"
+
+data = [
+    {"Employee_ID": 101, "Name": "Rajesh", "Department": "HR", "Age": 29, "Salary": 70000, "City": "Delhi"},
+    {"Employee_ID": 102, "Name": "Meena", "Department": "IT", "Age": 35, "Salary": 85000, "City": "Mumbai"},
+    {"Employee_ID": 103, "Name": "Suresh", "Department": "Finance", "Age": 45, "Salary": 95000, "City": "Bangalore"},
+    {"Employee_ID": 104, "Name": "Anita", "Department": "IT", "Age": 32, "Salary": 64000, "City": "Chennai"},
+    {"Employee_ID": 105, "Name": "Vijay", "Department": "Finance", "Age": 50, "Salary": 120000, "City": "Delhi"},
+    {"Employee_ID": 106, "Name": "Neeta", "Department": "HR", "Age": 28, "Salary": 72000, "City": "Mumbai"}
+]
+with open(file_name, "w") as file:
+    json.dump(data, file)
+
+# Load the JSON file into a DataFrame
+df = pd.read_json('employees.json')
+
+# Print the DataFrame
+print(df)
+```
+
+### DataFrame to JSON
+```python
+import json
+
+import pandas as pd
+
+file_name = "D:/PythonCode/pythonProject/employees.json"
+
+data = [
+    {"Employee_ID": 101, "Name": "Rajesh", "Department": "HR", "Age": 29, "Salary": 70000, "City": "Delhi"},
+    {"Employee_ID": 102, "Name": "Meena", "Department": "IT", "Age": 35, "Salary": 85000, "City": "Mumbai"},
+    {"Employee_ID": 103, "Name": "Suresh", "Department": "Finance", "Age": 45, "Salary": 95000, "City": "Bangalore"},
+    {"Employee_ID": 104, "Name": "Anita", "Department": "IT", "Age": 32, "Salary": 64000, "City": "Chennai"},
+    {"Employee_ID": 105, "Name": "Vijay", "Department": "Finance", "Age": 50, "Salary": 120000, "City": "Delhi"},
+    {"Employee_ID": 106, "Name": "Neeta", "Department": "HR", "Age": 28, "Salary": 72000, "City": "Mumbai"}
+]
+with open(file_name, "w") as file:
+    json.dump(data, file)
+
+# Load the JSON file into a DataFrame
+df = pd.read_json('employees.json')
+
+# Print the DataFrame
+print(df)
+
+# Add a new column 'Bonus' which is 10% of the Salary
+df['Bonus'] = df['Salary'] * 0.10
+print(df)
+
+# Save the updated DataFrame to a new JSON file
+df.to_json('employees_with_bonus.json', orient='records', lines=True)
+```
