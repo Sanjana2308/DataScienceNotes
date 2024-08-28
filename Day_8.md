@@ -23,6 +23,24 @@ response = requests.get("https://dummyjson.com/products/1")
 print(response.json()) # Print the HTTP status code
 ```
 
+### pandas
+pandas allows us to convert data to dataframes using DataFrames class.<br>
+Improves data viewing by converting dictionary to dataframes.
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+print(df)
+```
+Output:
+![output](Images/8_2.png)
 
 
 
