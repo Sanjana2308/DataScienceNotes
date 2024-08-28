@@ -23,7 +23,7 @@ response = requests.get("https://dummyjson.com/products/1")
 print(response.json()) # Print the HTTP status code
 ```
 
-### DataFrames
+## DataFrames
 pandas allows us to convert data to dataframes using DataFrames class.<br>
 Improves data viewing by converting dictionary to dataframes.
 ```python
@@ -42,7 +42,7 @@ print(df)
 Output:
 ![output](Images/8_2.png)
 
-#### Accessing data from DataFrames
+### Accessing data from DataFrames
 ```python
 import pandas as pd
 
@@ -72,7 +72,7 @@ print(df.iloc[:3])
 
 We use `dataframe_name.iloc[index_number]` to access rows using index for DataFrames.
 
-#### Filtering Data
+### Filtering Data
 Using DataFrames it is easy to filter data.
 ```python
 import pandas as pd
@@ -91,5 +91,81 @@ print(df)
 filtered_df = df[df["Age"] > 30]
 print(filtered_df)
 ```
+
+### Adding a new column to the DataFrame
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Adding a new column 'Salary'
+df["Salary"] = [50000, 60000, 70000, 80000, 90000]
+print(df)
+```
+
+### Sorting values in a DataFrame
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Sorting by Age
+sorted_df = df.sort_values(by="Age", ascending=False)
+print(sorted_df)
+```
+
+### Renaming columns
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Rename the 'Name' column to 'Full Name' and 'Age' to 'Years'
+df_renamed = df.rename(columns={"Name": "Full Name", "Age": "Years"})
+print(df_renamed)
+```
+
+### Dropping columns
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+
+# Drop the 'City' column
+df_dropped = df.drop(columns=["City"])
+print(df_dropped)
+```
+
+
+
+
 
 
