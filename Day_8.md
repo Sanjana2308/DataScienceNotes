@@ -23,7 +23,7 @@ response = requests.get("https://dummyjson.com/products/1")
 print(response.json()) # Print the HTTP status code
 ```
 
-### pandas
+### DataFrames
 pandas allows us to convert data to dataframes using DataFrames class.<br>
 Improves data viewing by converting dictionary to dataframes.
 ```python
@@ -42,5 +42,54 @@ print(df)
 Output:
 ![output](Images/8_2.png)
 
+#### Accessing data from DataFrames
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+# print(df)
+
+# Accessing a single column
+print("Names: ",df["Name"])
+
+# Accessing multiple columns
+print(df[["Name", "Age"]])
+
+# Accessing rows using index
+print(df.iloc[0]) # First row
+
+# Accessing multiple rows using index
+print(df.iloc[:3])
+```
+`iloc` stands for "integer location".
+
+We use `dataframe_name.iloc[index_number]` to access rows using index for DataFrames.
+
+#### Filtering Data
+Using DataFrames it is easy to filter data.
+```python
+import pandas as pd
+
+# Creating a DataFrame from a dictionary with Indian names
+data = {
+    "Name":["Amit", "Priya", "Vikram", "Neha", "Ravi"],
+    "Age": [25, 30, 35, 40, 45],
+    "City": ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"]
+}
+
+df = pd.DataFrame(data)
+print(df)
+
+# Filter rows where Age is greater than 30
+filtered_df = df[df["Age"] > 30]
+print(filtered_df)
+```
 
 
