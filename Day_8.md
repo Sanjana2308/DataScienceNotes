@@ -360,5 +360,122 @@ filtered_df = df[df["Name"].str.startswith('A')]
 print(filtered_df)
 ```
 
+### Hands-on DataFrames
+```python
+import pandas as pd
+
+# Creating a new dataset
+data = {
+    "Employee_ID": [101, 102, 103, 104, 105, 106],
+    "Name": ["Rajesh", "Meena", "Suresh", "Anita", "Vijay", "Neeta"],
+    "Department": ["HR", "IT", "Finance", "IT", "Finance", "HR"],
+    "Age": [29, 35, 45, 32, 50, 28],
+    "Salary": [70000, 85000, 95000, 64000, 120000, 72000],
+    "City": ["Delhi", "Mumbai", "Bangalore", "Chennai", "Delhi", "Mumbai"]
+}
+
+df = pd.DataFrame(data)
+print(df)
+```
+
+1. Rename Columns
+    1. Rename the "Salary" column to "Annual Salary" and "City" to "Location".
+    2. Print the updated DataFrame.
+```python
+df_rename = df.rename(columns={"Salary": "Annual Salary", "City": "Location"})
+print(df_rename)
+```
+
+2. Drop Columns
+    1. Drop the "Location" column from the DataFrame.
+    2. Print the DataFrame after dropping the column.
+```python
+df_dropped = df.drop(columns=["City"])
+print(df_dropped)
+```
+
+3. Drop Rows
+    1. Drop the row where "Name" is "Suresh".
+    2. Print the updated DataFrame.
+```python
+df_dropped_row = df.drop(index=2)
+print(df_dropped_row)
+```
+
+4. Handle Missing Data
+    1. Assign None to the "Salary" of "Meena".
+    2. Fill the missing "Salary" value with the mean salary of the existing employees.
+    3. Print the cleaned DataFrame.
+```python
+df_updated = df
+df_updated["Salary"][1] = None
+
+mean_salary = df_updated["Salary"].mean()
+df_updated["Salary"] = df_updated["Salary"].fillna(mean_salary)
+print(df_updated)
+```
+`df_updated["Salary"] = df_updated["Salary"].fillna(mean_salary)` replaces the None value with the calculated mean value, effectively filling the missing data.
+
+5. Create Conditional Columns
+    1. Create a new column "Seniority" that assigns "Senior" to employees aged 40 or above and "Junior" to employees younger than 40.
+    2. Print the updated DataFrame.
+```python
+df['Seniority'] = df['Age'].apply(lambda x: 'Senior' if x>= 40 else 'Junior')
+print(df)
+```
+
+6. Grouping and Aggregation
+    1. Group the DataFrame by "Department" and calculate the average salary in each department.
+    2. Print the grouped DataFrame.
+```python
+df_grouped = df.groupby("Department")["Salary"].mean()
+print(df_grouped)
+```
+
+### Displaying first n number of rows, summary information and summary statistics of given data
+Create CSV file employees.csv and convert it into DataFrames.<br>
+CSV file data:
+```
+Employee_ID,Name,Department,Age,Salary,City
+101,Rajesh,HR,29,70000,Delhi
+102,Meena,IT,35,85000,Mumbai
+103,Suresh,Finance,45,95000,Bangalore
+104,Anita,IT,32,64000,Chennai
+105,Vijay,Finance,50,120000,Delhi
+106,Neeta,HR,28,72000,Mumbai
+```
+
+```python
+import csv
+import pandas
+import pandas as pd
+
+file_name = "D:/PythonCode/pythonProject/employees.csv"
+
+# Writing data to CSV file
+data = [["Employee_ID","Name","Department","Age","Salary","City"],
+        [101,"Rajesh","HR",29,70000,"Delhi"],
+        [102,"Meena","IT",35,85000,"Mumbai"],
+        [103,"Suresh","Finance",45,95000,"Bangalore"],
+        [104,"Anita","IT",32,64000,"Chennai"],
+        [105,"Vijay","Finance",50,120000,"Delhi"],
+        [106,"Neeta","HR",28,72000,"Mumbai"]]
+with open(file_name, "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+
+# Load the CSV file into a data frame
+df = pd.read_csv(file_name)
+print(df)
+
+# Display the first three rows
+print(df.head(3))
+
+# Show summary information about DataFrame
+print(df.info())
+
+# Display summary statistics of numeric columns
+print(df.describe())
+```
 
 
