@@ -191,3 +191,87 @@ print("Number of vowels: ",count)
 palindrome = string_utils.is_palindrome("Malayalam")
 print("The string is palindrome?: ",palindrome)
 ```
+
+4. 
+`mymodule_one.py` 
+```python
+def greet(name):
+    return f"Hello, {name}!"
+
+# Code to execute when the module is run as a script
+if __name__ == "__main__":
+    # This block will only run if this file is executed directly
+    print("Executing mymodule as a script.")
+    name = "World"
+    print(greet(name))
+```
+
+`main.py`
+```python
+import mymodule_one
+
+print(mymodule_one.greet("Sanjana"))
+```
+
+5. 
+Package: `mypackage`
+Filename: `arithmetic.py`
+```python
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a-b
+
+def multiply(a, b):
+    return a*b
+
+def divide(a, b):
+    if b==0:
+        return "Cannot divide by 0"
+
+    else:
+        return a/b
+```
+
+Filename: `geometry.py`
+```python
+import math
+
+def area_of_circle(radius):
+    return math.pi * (radius ** 2)
+
+def perimeter_of_circle(radius):
+    return 2 * math.pi * radius
+
+def area_of_recatngle(length, breadth):
+    return length * breadth
+
+def perimeter_of_rectangle(length, breadth):
+    return 2 * (length + breadth)
+```
+
+Filename: `__init__.py`
+```python
+__all__ = ["arithmetic", "geometry"]
+```
+
+Filename: `main.py`
+```python
+# Importing the arithmetic module from mypackage
+from mypackage import arithmetic
+
+# Importing the geometry module from mypackage
+from mypackage import geometry
+
+# importing everything
+from mypackage import *
+
+# Using functions from arithmetic module
+print("Addition: ",arithmetic.add(10, 5))
+print("Division: ",arithmetic.divide(10, 2))
+
+# Using functions from geometry module
+print("Area of circle: ",geometry.area_of_circle(5))
+print("Perimeter of Rectangle: ",geometry.perimeter_of_rectangle(10, 5))
+```
