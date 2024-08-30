@@ -282,3 +282,140 @@ To import a file from the same package in which it is present.
 ```python
 from . import arithmetic
 ```
+
+## Types of arguments
+
+1. Keyword Arguments
+```python
+def describe_pet(pet_name, animal_type="dog"):
+    print(f"I have a {animal_type} named {pet_name}.")
+
+# Using keyword arguments
+describe_pet(animal_type="cat", pet_name="Whiskers")
+describe_pet(pet_name="Rover")
+```
+
+2. Arbitrary Arguments for String
+```python
+def make_pizza(size, *toppings):
+    print(f"Making a {size}-inch pizza with  the following toppings: ")
+    for topping in toppings:
+        print(f"-{topping}")
+
+# Calling with arbitrary positional arguments
+make_pizza(12, "pepperoni", "mushrooms", "green peppers")
+```
+
+3. Arbitrary Keyword Arguments for dictionaries
+```python
+def build_profile(first, last, **user_info):
+    return {"first_name": first, "last_name": last, **user_info}
+
+# Calling with arbitrary keyword arguments
+user_profile = build_profile("John", "Doe", location="New York", field="Engineering")
+print(user_profile)
+```
+
+
+## Data Processing
+### Using numpy
+#### Creating a 1-D array
+```python
+import numpy as np
+
+# Create a one-dimensional array
+arr = np.array([1, 2, 3, 4, 5])
+print("Array: ", arr)
+```
+#### Reshape to a 2x3 array
+```python
+reshaped_arr = np.arange(6).reshape(2, 3)
+print("Reshaped Array: ",reshaped_arr)
+```
+#### Element-wise addition
+```python
+arr_add = arr+10
+print("Added 10 to each element: ", arr_add)
+```
+#### Element-wise multiplication
+```python
+arr_mul = arr*2
+print("Multiplied each element by 2: ",arr_mul)
+```
+
+#### Slicing arrays
+```python
+sliced_arr = arr[1:4] # Get elements from index 1 to 3
+print("Sliced Array: ",sliced_arr)
+```
+
+## Data Cleaning
+### Reading the CSV File
+```csv
+Name, Age, City, Salary
+John Doe, 29, New York, 75000
+Jane Smith, 34, Los Angeles, 82000
+Sam Brown, 22, , 54000
+Emily Davis, , Chicago, 91000
+Michael Johnson, 45, Houston,
+Anna Lee, 30, San Francisco, 77000
+```
+
+```python
+import pandas as pd
+
+# Load the CSV file
+df = pd.read_csv('sample_data.csv')
+
+# Display the DataFrame
+print(df)
+```
+
+#### Display rows with missing data
+```python
+print(df[df.isnull().any(axis=1)])
+```
+
+#### Check for missing values in each column
+```python
+print(df.isnull().sum())
+```
+
+#### Replace empty strings with only spaces with NaN
+```python
+df.replace(r'^\s*$', np.nan, regex=True, inplace=True)
+```
+
+#### dropna()
+
+#### fillna()
+```python
+import pandas as pd
+import numpy as np
+
+# Load the CSV file
+df = pd.read_csv('sample_data.csv')
+
+print("Before Transformation")
+# Display the DataFrame
+print(df)
+
+# Ensure there are no leading/trailing spaces in column names
+df.columns = df.columns.str.strip()
+
+# Strip spaces from the city column and replace empty string NaN
+df['City'] = df['City'].str.strip().replace('',np.nan)
+
+# Fill missing values in the 'City' column with 'Unknown'
+df['City'] = df['City'].fillna('Unknown')
+
+# Fill missing values in the 'Age' column with the median age
+df['Age'] = pd.to_numeric(df['Age'].str.strip(), errors='coerce')
+df['Age'] = df['Age'].fillna(df['Age'].median())
+
+# Fill missing values in the 'Salary' column with the median salary
+df['Salary'] = df['Salary'].fillna(df['Salary'].median())
+
+# Display the DataFrame after filling missing values
+print(df)
+```
