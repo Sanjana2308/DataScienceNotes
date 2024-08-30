@@ -99,6 +99,7 @@ print("\nLeft Join:",merged_df_left)
 ```
 
 ## Modules in Python
+Group of reusable functions
 1. 
 FileName: `mymodule.py`
 ```python
@@ -244,7 +245,7 @@ def area_of_circle(radius):
 def perimeter_of_circle(radius):
     return 2 * math.pi * radius
 
-def area_of_recatngle(length, breadth):
+def area_of_rectangle(length, breadth):
     return length * breadth
 
 def perimeter_of_rectangle(length, breadth):
@@ -274,4 +275,10 @@ print("Division: ",arithmetic.divide(10, 2))
 # Using functions from geometry module
 print("Area of circle: ",geometry.area_of_circle(5))
 print("Perimeter of Rectangle: ",geometry.perimeter_of_rectangle(10, 5))
+```
+
+
+To import a file from the same package in which it is present.
+```python
+from . import arithmetic
 ```
