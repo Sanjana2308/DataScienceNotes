@@ -32,3 +32,32 @@ spark = SparkSession.builder \
 print(spark)
 ```
 
+2. Creating DataFrames using PySpark
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
+
+# Initialize SparkSession
+
+spark = SparkSession.builder \
+    .appName("PySpark DataFrame Example") \
+    .getOrCreate()
+
+# Sample data representing employees
+data = [
+    ("John Doe", "Engineering", 75000),
+    ("Jane Smith", "Marketing", 60000),
+    ("Sam Brown", "Engineering", 80000),
+    ("Emily Davis", "HR", 50000),
+    ("Michael Johnson", "Marketing", 70000),
+]
+ 
+# Define schema for DataFrame
+columns = ["Name", "Department", "Salary"]
+ 
+# Create DataFrame
+df = spark.createDataFrame(data, schema=columns)
+ 
+# Show the DataFrame
+df.show()
+```
