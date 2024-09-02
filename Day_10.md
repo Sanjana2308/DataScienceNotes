@@ -17,3 +17,18 @@ Used to deal with large volume of data<br>
 
 ## PySpark
 [PySpark](https://www.databricks.com/glossary/pyspark)
+
+## PySpark Coding part
+![alt text](Images/10_2.png)
+
+```python
+# Import PySpark and initialize a Spark session
+from pyspark.sql import SparkSession
+# Initialize SparkSession
+spark = SparkSession.builder \     
+.appName("PySpark Notebook Example") \     
+.getOrCreate()
+# Verify the Spark session is working 
+print(spark)
+```
+
