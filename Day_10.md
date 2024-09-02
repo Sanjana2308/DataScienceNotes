@@ -61,3 +61,17 @@ df = spark.createDataFrame(data, schema=columns)
 # Show the DataFrame
 df.show()
 ```
+
+3. Filter: Select employees with a salary greater than 65000
+```python
+high_salary_df = df.filter(col("Salary") > 65000)
+print("Employees with a salary greater than 65000: ")
+high_salary_df.show()
+```
+
+4. Group by Department and calculate the average salary
+```python
+avg_salary_df = df.groupBy("Department").avg("Salary")
+print("Average Salary by Department: ")
+avg_salary_df.show()
+```
