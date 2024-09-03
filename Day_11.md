@@ -488,3 +488,178 @@ print(f"Total sum: {total_sum}")
 ```
 
 ## Hands-on
+---
+
+### **Exercise: Working with Key-Value Pair RDDs in PySpark**
+
+#### **Objective:**
+
+In this exercise, you will work with key-value pair RDDs in PySpark. You will create RDDs, perform operations like grouping, aggregating, and sorting, and extract meaningful insights from the data.
+
+---
+
+### **Dataset:**
+
+You will be working with the following sales data. Each entry in the dataset represents a product and its corresponding sales amount.
+
+```python
+sales_data = [
+    ("ProductA", 100),
+    ("ProductB", 150),
+    ("ProductA", 200),
+    ("ProductC", 300),
+    ("ProductB", 250),
+    ("ProductC", 100)
+]
+```
+
+You will also be working with an additional dataset for regional sales:
+
+```python
+regional_sales_data = [
+    ("ProductA", 50),
+    ("ProductC", 150)
+]
+```
+
+---
+
+### **Step 1: Initialize Spark Context**
+
+1. **Initialize SparkSession and SparkContext:**
+   - Create a Spark session in PySpark and use the `spark.sparkContext` to create an RDD from the provided data.
+```python
+from pyspark.sql import SparkSession
+
+
+spark = SparkSession.builder \
+        .appName("Key-value Pair RDD Exercise") \
+        .getOrCreate()
+
+sc = spark.sparkContext
+```
+---
+
+### **Step 2: Create and Explore the RDD**
+
+2. **Task 1: Create an RDD from the Sales Data**
+   - Create an RDD from the `sales_data` list provided above.
+   - Print the first few elements of the RDD.
+```python
+sales_data = [
+    ("ProductA", 100),
+    ("ProductB", 150),
+    ("ProductA", 200),
+    ("ProductC", 300),
+    ("ProductB", 250),
+    ("ProductC", 100)
+]
+
+sales_rdd = sc.parallelize(sales_data)
+print(sales_rdd.collect())
+```
+---
+
+### **Step 3: Grouping and Aggregating Data**
+
+3. **Task 2: Group Data by Product Name**
+   - Group the sales data by product name using `groupByKey()`.
+   - Print the grouped data to understand its structure.
+```python
+grouped_sales = sales_rdd.groupByKey()
+grouped_sales_data = [(k, list(v)) for k, v in grouped_sales.collect()]
+print(grouped_sales_data)
+```
+
+4. **Task 3: Calculate Total Sales by Product**
+   - Use `reduceByKey()` to calculate the total sales for each product.
+   - Print the total sales for each product.
+```python
+total_sales = sales_rdd.reduceByKey(lambda x, y: x + y)
+print(total_sales.collect())
+```
+
+5. **Task 4: Sort Products by Total Sales**
+   - Sort the products by their total sales in descending order.
+   - Print the sorted list of products along with their sales amounts.
+```python
+sorted_sales = total_sales.sortBy(lambda x: x[1], ascending=False)
+print(sorted_sales.collect())
+```
+
+---
+
+### **Step 4: Additional Transformations**
+
+6. **Task 5: Filter Products with High Sales**
+   - Filter the products that have total sales greater than 200.
+   - Print the products that meet this condition.
+```python
+high_sales = total_sales.filter(lambda x: x[1] > 200)
+print(high_sales.collect())
+```
+
+7. **Task 6: Combine Regional Sales Data**
+   - Create another RDD from the `regional_sales_data` list.
+   - Combine this RDD with the original sales RDD using `union()`.
+   - Calculate the new total sales for each product after combining the datasets.
+   - Print the combined sales data.
+```python
+regional_sales_data = [
+    ("ProductA", 50),
+    ("ProductC", 150)
+]
+
+regional_sales_rdd = sc.parallelize(regional_sales_data)
+combined_sales_rdd = sales_rdd.union(regional_sales_rdd)
+new_total_sales = combined_sales_rdd.reduceByKey(lambda x, y: x + y)
+print(new_total_sales.collect())
+```
+
+---
+
+### **Step 5: Perform Actions on the RDD**
+
+8. **Task 7: Count the Number of Distinct Products**
+   - Count the number of distinct products in the RDD.
+   - Print the count of distinct products.
+```python
+distinct_products = new_total_sales.keys().distinct().count()
+print(f"Number of distinct products: {distinct_products}")
+```
+
+9. **Task 8: Identify the Product with Maximum Sales**
+   - Find the product with the maximum total sales using `reduce()`.
+   - Print the product name and its total sales amount.
+```python
+max_sales_product = new_total_sales.reduce(lambda x, y: x if x[1] > y[1] else y)
+print(f"Product with maximum sales: {max_sales_product[0]}, Sales Amount: {max_sales_product[1]}")
+```
+
+---
+
+### **Challenge Task: Calculate the Average Sales per Product**
+
+10. **Challenge Task:**
+    - Calculate the average sales amount per product using the key-value pair RDD.
+    - Print the average sales for each product.
+```python
+product_count = combined_sales_rdd.mapValues(lambda x: (x, 1))
+total_sales_and_count = product_count.reduceByKey(lambda x, y: (x[0] + y[0], x[1] + y[1]))
+average_sales = total_sales_and_count.mapValues(lambda x: x[0] / x[1])
+print(average_sales.collect())
+```
+
+---
+
+### **Expected Outcomes**
+
+- **Task 1:** You should be able to create an RDD with key-value pairs and display its contents.
+- **Task 2:** Group the data by key (product name) and explore the structure of grouped data.
+- **Task 3:** Aggregate data to calculate total sales per product.
+- **Task 4:** Sort the products by total sales and explore the results.
+- **Task 5:** Filter the products based on a sales threshold.
+- **Task 6:** Combine two RDDs and compute the new total sales for each product.
+- **Task 7:** Count the number of distinct products in the dataset.
+- **Task 8:** Identify the product with the highest sales.
+- **Challenge Task:** Calculate and understand the average sales per product.
