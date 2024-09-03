@@ -249,3 +249,118 @@ filtered_products_df.show()
 
 - Use PySpark DataFrame operations such as `join`, `groupBy`, `agg`, `orderBy`, and `filter` to complete the tasks.
 - This exercise will help you practice joining DataFrames, performing aggregations, filtering, and sorting data in PySpark.
+
+
+
+---
+
+## **Exercise: Analyzing a Sample Sales Dataset Using PySpark**
+
+In this exercise, you'll work with a simulated sales dataset and perform various data transformations and analyses using PySpark. The dataset includes fields like `TransactionID`, `CustomerID`, `ProductID`, `Quantity`, `Price`, and `Date`. Your task is to generate the dataset, load it into PySpark, and answer specific questions by performing data operations.
+
+
+### **Part 1: Dataset Preparation**
+
+#### **Step 1: Generate the Sample Sales Dataset**
+
+Before starting the analysis, you'll need to create the sample sales dataset. Use the following Python code to generate the dataset and save it as a CSV file.
+
+1. **Run the Dataset Preparation Script:**
+
+   ```python
+   import pandas as pd
+   from datetime import datetime
+
+   # Sample sales data
+   data = {
+       "TransactionID": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+       "CustomerID": [101, 102, 103, 101, 104, 102, 103, 104, 101, 105],
+       "ProductID": [501, 502, 501, 503, 504, 502, 503, 504, 501, 505],
+       "Quantity": [2, 1, 4, 3, 1, 2, 5, 1, 2, 1],
+       "Price": [150.0, 250.0, 150.0, 300.0, 450.0, 250.0, 300.0, 450.0, 150.0, 550.0],
+       "Date": [
+           datetime(2024, 9, 1),
+           datetime(2024, 9, 1),
+           datetime(2024, 9, 2),
+           datetime(2024, 9, 2),
+           datetime(2024, 9, 3),
+           datetime(2024, 9, 3),
+           datetime(2024, 9, 4),
+           datetime(2024, 9, 4),
+           datetime(2024, 9, 5),
+           datetime(2024, 9, 5)
+       ]
+   }
+
+   # Create a DataFrame
+   df = pd.DataFrame(data)
+
+   # Save the DataFrame to a CSV file
+   df.to_csv('sales_data.csv', index=False)
+
+   print("Sample sales dataset has been created and saved as 'sales_data.csv'.")
+   ```
+
+2. **Verify the Dataset:**
+   - After running the script, ensure that the file `sales_data.csv` has been created in your working directory.
+
+---
+
+### **Part 2: Load and Analyze the Dataset Using PySpark**
+
+Now that you have the dataset, your task is to load it into PySpark and perform the following analysis tasks.
+
+#### **Step 2: Load the Dataset into PySpark**
+
+1. **Initialize the SparkSession:**
+   - Create a Spark session named `"Sales Dataset Analysis"`.
+
+2. **Load the CSV File into a PySpark DataFrame:**
+   - Load the `sales_data.csv` file into a PySpark DataFrame.
+   - Display the first few rows of the DataFrame to verify that the data is loaded correctly.
+
+#### **Step 3: Explore the Data**
+
+Explore the data to understand its structure.
+
+1. **Print the Schema:**
+   - Display the schema of the DataFrame to understand the data types.
+
+2. **Show the First Few Rows:**
+   - Display the first 5 rows of the DataFrame.
+
+3. **Get Summary Statistics:**
+   - Get summary statistics for numeric columns (`Quantity` and `Price`).
+
+#### **Step 4: Perform Data Transformations and Analysis**
+
+Perform the following tasks to analyze the data:
+
+1. **Calculate the Total Sales Value for Each Transaction:**
+   - Add a new column called `TotalSales`, calculated by multiplying `Quantity` by `Price`.
+
+2. **Group By ProductID and Calculate Total Sales Per Product:**
+   - Group the data by `ProductID` and calculate the total sales for each product.
+
+3. **Identify the Top-Selling Product:**
+   - Find the product that generated the highest total sales.
+
+4. **Calculate the Total Sales by Date:**
+   - Group the data by `Date` and calculate the total sales for each day.
+
+5. **Filter High-Value Transactions:**
+   - Filter the transactions to show only those where the total sales value is greater than ₹500.
+
+---
+
+### **Additional Challenge (Optional):**
+
+If you complete the tasks above, try extending your analysis with the following challenges:
+
+1. **Identify Repeat Customers:**
+   - Count how many times each customer has made a purchase and display the customers who have made more than one purchase.
+
+2. **Calculate the Average Sale Price Per Product:**
+   - Calculate the average price per unit for each product and display the results.
+
+---
