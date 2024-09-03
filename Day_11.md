@@ -48,3 +48,37 @@ customer_df.show()
 print("Transactions DataFrame:")
 transaction_df.show()
 ```
+
+2. 
+```python
+# Join the DataFrames on CustomerID
+customer_transactions_df = customer_df.join(transaction_df, on="CustomerID")
+
+print("Customer Transactions DataFrame:")
+customer_transactions_df.show()
+
+# Calculate the total amount spent by each customer
+total_spent_df = customer_transactions_df.groupBy("Name").sum("Amount").withColumnRenamed("sum(Amount)", "TotalSpent")  
+
+print("Total Amount Spent by Each Customer:")
+total_spent_df.show()
+
+# Find customers who have spent more than 30000
+big_spenders_df = total_spent_df.filter(col("TotalSpent") > 30000)
+
+print("Customers who have spent more than 30000:")
+big_spenders_df.show()
+
+# Count the number of transactions per customer
+transaction_count_df = customer_transactions_df.groupBy("Name").count().withColumnRenamed("count", "TransactionCount")
+
+print("Number of Transactions per Customer:")
+transaction_count_df.show()
+
+# Sort customers by total amount spent in descending order
+sorted_customers_df = total_spent_df.orderBy(col("TotalSpent").desc())
+
+print("Customers sorted by total amount spent:")
+sorted_customers_df.show()
+```
+
