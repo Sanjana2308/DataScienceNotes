@@ -468,3 +468,23 @@ words_rdd = rdd4.flatMap(lambda x: x.split(" "))
 # Print the flatMapped RDD
 print("RDD after flatMap transformation (split into words): ",words_rdd.collect())
 ```
+
+6. .collect()
+```python
+results = rdd3.collect()
+print(results)
+```
+
+7. .count()
+```python
+count = rdd3.count()
+print(f"Number of elements: {count}")
+```
+
+8. .reduce()
+```python
+total_sum = rdd.reduce(lambda x, y: x+y)
+print(f"Total sum: {total_sum}")
+```
+
+## Hands-on
