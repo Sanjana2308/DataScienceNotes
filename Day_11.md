@@ -420,3 +420,51 @@ average_sale_price_per_product = average_sale_price_per_product.withColumnRename
 average_sale_price_per_product.show()
 ```
 ---
+
+## RDD
+We convert our data into RDD for executing parallel processing.
+
+1. Setting up the environment
+```python
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder \
+        .appName('RDD Transformation Example') \
+        .getOrCreate()
+
+# Get the SparkContent from SparkSession
+sc = spark.sparkContext
+print("Spark Session Created")
+```
+
+2. Creating a RDD
+```python
+data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+rdd = sc.parallelize(data)
+print("Original RDD: ",rdd.collect())
+```
+
+3. Map Transformation
+```python
+# .map() will do a for loop around your rdd
+rdd2 = rdd.map(lambda x: x * 2)
+# Print the transformed RDD
+print("RDD after map transformation (x*2): ",rdd2.collect()) 
+```
+
+4. Filter Transformations
+```python
+rdd3 = rdd2.filter(lambda x: x % 2 == 0)
+# Print the filtered RDD
+print("RDD after filter transformation (even numbers): ",rdd3.collect())
+```
+
+5. flatMap Transformations
+```python
+sentences = ["Hello world", "PySpark is great", "RDD transformations"]
+rdd4 = sc.parallelize(sentences)
+words_rdd = rdd4.flatMap(lambda x: x.split(" "))
+
+# Print the flatMapped RDD
+print("RDD after flatMap transformation (split into words): ",words_rdd.collect())
+```
