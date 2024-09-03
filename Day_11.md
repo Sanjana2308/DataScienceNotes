@@ -303,6 +303,10 @@ Before starting the analysis, you'll need to create the sample sales dataset. Us
 
 2. **Verify the Dataset:**
    - After running the script, ensure that the file `sales_data.csv` has been created in your working directory.
+```python
+with open('sales_data.csv', 'r') as file:
+    print(file.read())
+```
 
 ---
 
@@ -314,10 +318,20 @@ Now that you have the dataset, your task is to load it into PySpark and perform 
 
 1. **Initialize the SparkSession:**
    - Create a Spark session named `"Sales Dataset Analysis"`.
+```python
+import pyspark
+from pyspark.sql import SparkSession
 
+SalesDatasetAnalysis = SparkSession.builder.appName("SalesDataAnalysis").getOrCreate()
+```
 2. **Load the CSV File into a PySpark DataFrame:**
    - Load the `sales_data.csv` file into a PySpark DataFrame.
    - Display the first few rows of the DataFrame to verify that the data is loaded correctly.
+```python
+sales_data_df = SalesDatasetAnalysis.read.csv("sales_data.csv", header=True, inferSchema=True)
+
+sales_data_df.show(5)
+```
 
 #### **Step 3: Explore the Data**
 
@@ -325,12 +339,22 @@ Explore the data to understand its structure.
 
 1. **Print the Schema:**
    - Display the schema of the DataFrame to understand the data types.
+```python
+sales_data_df.printSchema()
+```
+
 
 2. **Show the First Few Rows:**
    - Display the first 5 rows of the DataFrame.
+```python
+sales_data_df.show(5)
+```
 
 3. **Get Summary Statistics:**
    - Get summary statistics for numeric columns (`Quantity` and `Price`).
+```python
+sales_data_df.describe(["Quantity", "Price"]).show()
+```
 
 #### **Step 4: Perform Data Transformations and Analysis**
 
@@ -338,19 +362,42 @@ Perform the following tasks to analyze the data:
 
 1. **Calculate the Total Sales Value for Each Transaction:**
    - Add a new column called `TotalSales`, calculated by multiplying `Quantity` by `Price`.
+```python
+sales_data_df = sales_data_df.withColumn("TotalSales", sales_data_df["Quantity"] * sales_data_df["Price"])
+sales_data_df.show()
+```
 
 2. **Group By ProductID and Calculate Total Sales Per Product:**
    - Group the data by `ProductID` and calculate the total sales for each product.
+```python
+total_sales_by_product = sales_data_df.groupBy("ProductID").agg({"TotalSales": "sum"})
+total_sales_by_product = total_sales_by_product.withColumnRenamed("sum(TotalSales)", "TotalSales")
+total_sales_by_product.show()
+```
 
 3. **Identify the Top-Selling Product:**
    - Find the product that generated the highest total sales.
+```python
+top_selling_product = total_sales_by_product.orderBy("TotalSales", descending=True).first()
+print("Top-selling product:", top_selling_product)
+```
+
 
 4. **Calculate the Total Sales by Date:**
    - Group the data by `Date` and calculate the total sales for each day.
+```python
+total_sales_by_date = sales_data_df.groupBy("Date").agg({"TotalSales": "sum"})
+total_sales_by_date = total_sales_by_date.withColumnRenamed("sum(TotalSales)", "TotalSales")
+total_sales_by_date.show()
+```
 
 5. **Filter High-Value Transactions:**
    - Filter the transactions to show only those where the total sales value is greater than ₹500.
-
+```python
+high_value_transactions = sales_data_df.filter(sales_data_df["TotalSales"] > 500)
+print("High Value Transactions: ")
+high_value_transactions.show()
+```
 ---
 
 ### **Additional Challenge (Optional):**
@@ -359,8 +406,17 @@ If you complete the tasks above, try extending your analysis with the following 
 
 1. **Identify Repeat Customers:**
    - Count how many times each customer has made a purchase and display the customers who have made more than one purchase.
+```python
+repeat_customers = sales_data_df.groupBy("CustomerID").count().filter("count > 1")
+repeat_customers = repeat_customers.withColumnRenamed("count", "PurchaseCount")
+repeat_customers.show()
+```
 
 2. **Calculate the Average Sale Price Per Product:**
    - Calculate the average price per unit for each product and display the results.
-
+```python
+average_sale_price_per_product = sales_data_df.groupBy("ProductID").agg({"Price": "avg"})
+average_sale_price_per_product = average_sale_price_per_product.withColumnRenamed("avg(Price)", "AverageSalePrice")
+average_sale_price_per_product.show()
+```
 ---
