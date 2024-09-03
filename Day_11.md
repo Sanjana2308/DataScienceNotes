@@ -663,3 +663,38 @@ print(average_sales.collect())
 - **Task 7:** Count the number of distinct products in the dataset.
 - **Task 8:** Identify the product with the highest sales.
 - **Challenge Task:** Calculate and understand the average sales per product.
+
+## Task
+
+### Creating DataFrames
+
+### Looking at data in DataFrames
+
+### Selecting, Renaming, Filtering Data in a Pandas DataFrame
+```python
+import pandas as pd
+
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'City': ['New York', 'Los Angeles', 'Chicago']
+}
+
+df = pd.DataFrame(data)
+
+print(df.head())
+
+print(df['Name'])
+
+print(df[['Name', 'Age']])
+
+df_rename = df
+df_rename.rename(columns = {'Name': 'Full Name', 'Age': 'Years'})
+print(df_rename)
+
+adults = df[df['Age'] > 30]
+print(adults)
+
+specific = df[(df['Age'] > 25) & (df['City'] == 'New York')]
+print(specific)
+```
