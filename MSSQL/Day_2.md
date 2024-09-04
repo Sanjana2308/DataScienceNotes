@@ -1,7 +1,7 @@
 # Day 2
 
 ## Joins
-![alt text](Images/2_1.png)
+![alt text](../Images/MSSQL/2_1.png)
 Create these two tables for further queries
 1. Create and use DB
 ~~~sql
@@ -94,7 +94,7 @@ ON tblEmployee.DepartmentId = tblDepartment.ID
 
 ### Practice on Joins
 Create tables with following data and perfrom all join queries<br><br>
-![alt text](Images/2_2.png)
+![alt text](../Images/MSSQL/2_2.png)
 
 1. Create Tables
 ~~~sql

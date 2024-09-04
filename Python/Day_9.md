@@ -143,7 +143,8 @@ print("Multiply: ",math_operations.multiply(a, b))
 print("Division: ",math_operations.divide(a, b))
 ```
 3. 
-![alt text](Images/9_1.png)
+![alt text](../Images/Python/9_1.png)
+
 Filename: `string_utils.py`
 ```python
 def capitalize_words(str):

@@ -3,7 +3,7 @@
 ## Big Data
 [Big Data](https://cloud.google.com/learn/what-is-big-data)
 
-![alt text](Images/10_1.png)
+![What happens in an Internet Minute](../Images/PySpark/10_1.png)
 
 ## PySpark - Apache
 Used to deal with large volume of data<br>
@@ -19,7 +19,6 @@ Used to deal with large volume of data<br>
 [PySpark](https://www.databricks.com/glossary/pyspark)
 
 ## PySpark Coding part
-![alt text](Images/10_2.png)
 
 ```python
 # Import PySpark and initialize a Spark session

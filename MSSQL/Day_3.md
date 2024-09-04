@@ -1,7 +1,7 @@
 # Day 3
 
 ## Activity
-![alt text](Images/3_1.png)
+![alt text](../Images/MSSQL/3_1.png)
 1. 
 ~~~sql
 select product_name AS ProductName,  SUM(quantity) AS TotalQuantitySold, SUM(price) AS TotalSalesAmount
@@ -37,9 +37,9 @@ ORDER BY TotalQuantitySold DESC
 ~~~
 
 ## Activity
-![alt text](Images/3_2.png)
+![alt text](../Images/MSSQL/3_2.png)
 
-![alt text](Images/3_3.png)
+![alt text](../Images/MSSQL/3_3.png)
 
 1. 
 ~~~sql

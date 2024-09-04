@@ -3,17 +3,18 @@
 ## Math Functions
 First SS in phone
 
-![alt text](Images/4_1.png)
+![alt text](../Images/MSSQL/4_1.png)
 
 ### Activity
 1. Apply a 15% discount, round the discounted price to 2 decimal places, and show both the ceiling and floor values of the final discounted price.
 Solution
-![alt text](Images/4_2.png)
+![alt text](../Images/MSSQL/4_2.png)
 
-![alt text](Images/4_3.png)
+### Aggregate Function
+![alt text](../Images/MSSQL/4_3.png)
 
 ## Exercise
-![alt text](Images/4_4.png)
+![alt text](../Images/MSSQL/4_4.png)
 1. 
 ~~~sql
 SELECT ID, Name, SUM(PurchaseAmt) AS TotalAmountSpent
@@ -108,7 +109,7 @@ EXEC GetProductByCategoryAndPrice @Category = 'Electronics', @MinPrice = 500.00;
 ~~~
 
 ### Activity
-![alt text](Images/4_6.png)
+![alt text](../Images/MSSQL/4_5.png)
 
 1. 
 ~~~sql

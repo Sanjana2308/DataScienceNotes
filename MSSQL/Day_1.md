@@ -85,7 +85,7 @@ WHERE Id = 3
 
 ## Task - 1
 Perform CRUD Operations on the following table
-![alt text](Images/1_1.png)
+![alt text](../Images/MSSQL/1_1.png)
 
 1. Create Table and Insert values
 ~~~sql
@@ -143,7 +143,7 @@ where FirstName = 'Sarah'
 ~~~
 
 ## Other Operatios on table
-![alt text](Images/1_2.png)
+![alt text](../Images/MSSQL/1_2.png)
 Create the above table Employee and delete previous entries from the table.
 ~~~sql
 INSERT INTO Employee(EmployeeID, FirstName, LastName, Position, Department, HireDate)

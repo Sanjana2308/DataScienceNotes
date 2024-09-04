@@ -39,8 +39,8 @@ data = {
 df = pd.DataFrame(data)
 print(df)
 ```
-Output:
-![output](Images/8_2.png)
+Output:<br>
+![alt text](../Images/Python/8_1.png)
 
 ### Accessing data from DataFrames
 ```python
@@ -282,8 +282,9 @@ df_new = pd.DataFrame({
 df_merged = pd.merge(df, df_new, on="Name", how="left")
 print(df_merged)
 ```
-Output:
-![Output](Images/8_3.png)
+
+Output:<br>
+![alt text](../Images/Python/8_2.png)
 
 The table has null values because in the new DataFrame there are no values present for the `Name` : `Vikram` and `Neha`
 

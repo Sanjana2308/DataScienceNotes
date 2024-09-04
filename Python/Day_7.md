@@ -521,7 +521,7 @@ print(f"{cat.name} speaks: {cat.speak()}")
 ```
 
 __Real time explanation of Inheritance and pass__
-![alt text](Images/7_1.png)
+![alt text](../Images/Python/7_1.png)
 Example Implementation:
 
 ```python

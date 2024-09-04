@@ -296,7 +296,7 @@ ORDER BY CT.TotalSpent DESC;
 ~~~
 
 ## Data Warehouse
-![alt text](Images/5_1.png)
+![alt text](../Images/MSSQL/5_1.png)
 
 __ETL__: Extract, Transform and Load
 
@@ -307,11 +307,11 @@ __SCM__: Supply Chain Management
 __ERP__: Enterprise Resource Planning
 
 ### Fact Table and Dimension Table
-![Fact Table and Dimension Table](Images/5_2.png)
+![alt text](../Images/MSSQL/5_2.png)
 
-### Star Schema
-![Star Schema](Images/5_3.png)
-
+### Star Schema							
+![Star Schema](Images/5_3.png)			
+										} Confusion
 ### Snowflake Schema
 ![Snowflake Schema](Images/5_3.png)
 
