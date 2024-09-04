@@ -30,7 +30,7 @@ employee_df = spark.createDataFrame(data, columns)
 employee_df.show()
 ```
 
-### Tasks for Participants:
+### Tasks:
 
 1. **Task 1: Filter Employees by Salary**  
    Filter the employees who have a salary greater than 60,000 and display the result.
@@ -67,3 +67,4 @@ sorted_by_salary_df.show()
 bonus_df = employee_df.withColumn("Bonus", col("Salary") * 0.1)
 bonus_df.show()
 ```
+

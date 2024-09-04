@@ -32,7 +32,7 @@ print(df_1.describe()) # mean, min, max
 ```
 
 
-# Exercise 3: Selecting Data
+### Exercise 3: Selecting Data
 1. Select and display the `"Product"` and `"Price"` columns.
 2. Select rows where the `"Category"` is `"Electronics"` and print them.
 ```python
