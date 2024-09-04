@@ -68,3 +68,68 @@ bonus_df = employee_df.withColumn("Bonus", col("Salary") * 0.1)
 bonus_df.show()
 ```
 
+## Ways to Handle NULL values
+
+`Data`:
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
+
+# Initialize a Spark session
+spark = SparkSession.builder \
+    .appName("Employee Data Analysis") \
+    .getOrCreate()
+
+# Sample employee data
+data = [
+    (1, 'Arjun', 'IT', 75000),
+    (2, 'Vijay', 'Finance', 85000),
+    (3, None, 'IT', 90000),
+    (4, 'Sneha', 'HR', None),
+    (5, 'Rahul', 'None', 60000),
+    (6, 'Amit', 'IT', 55000)
+]
+
+# Define schema (columns)
+columns = ['EmployeeID', 'EmployeeName', 'Department', 'Salary']
+
+# Create DataFrame
+employee_df = spark.createDataFrame(data, columns)
+
+# Show the DataFrame
+employee_df.show()
+```
+
+1. Drop rows with NULL values
+```python
+# Drop rows where 'Salary' is NULL
+dropped_null_salary_df = filled_df.dropna(subset=['Salary'])
+dropped_null_salary_df.show()
+```
+
+2. Filling up NULL values with a default value
+```python
+# Fill null values in  'EmployeeName' and 'Department' with 'Unknown'
+filled_df = employee_df.fillna({'EmployeeName': 'Unknown', 'Department': 'Unknown'})
+filled_df.show()
+```
+
+3. Fill NULL values in 'Salary' with 50000
+```python
+# Fill NULL values in 'Salary' with 50000
+salary_filled_df = employee_df.fillna({'Salary': 50000})
+salary_filled_df.show()
+```
+
+4. Using Functions
+```python 
+# Check for null values in the entire Dataframe
+null_counts = employee_df.select([col(c).isNull().alias(c) for c in employee_df.columns]).show()
+```
+
+5. Replace all NULL values with a placeholder (N/A) here
+```python
+# Replace all NULL values in the DataFrame with 'N/A'
+na_filled_df = employee_df.na.fill('N/A')
+na_filled_df.show()
+```
