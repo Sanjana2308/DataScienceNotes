@@ -292,64 +292,70 @@ INSERT INTO Salaries (salary_id, employee_id, salary, salary_date) VALUES
 (5, 5, 7500, '2024-03-01');
 ~~~
 
-
-•  Using an Equi Join:
+###  Using an Equi Join:
 Write a query to list all employees and their salaries using an equi join between the Employees and Salaries tables.
---Code--
+~~~sql
 select e.employee_name, s.salary
 from Employees e, Salaries s
 where e.employee_id = s.employee_id
-----
+~~~
 
-•  Using a Self Join:
+###  Using a Self Join:
 Write a query to list each employee and their manager's name using a self join on the Employees table.
---Code--
+~~~sql
 select e1.employee_name AS Employee_name, e2.employee_name AS Manager_name
 FROM Employees as e1
 LEFT JOIN Employees as e2
 ON e2.employee_id = e1.manager_id
-----
+~~~
 
-•  Using GROUP BY with HAVING:
+### Using GROUP BY with HAVING:
 Write a query to calculate the average salary by department. Use GROUP BY and filter out departments where the average salary is below 6000.
---Code--
+~~~sql
 select e.department, AVG(s.salary) AS average_salary
 FROM Employees e
 JOIN Salaries s
 ON e.employee_id = s.employee_id
 GROUP BY e.department
 HAVING AVG(s.salary) >= 6000
-----
+~~~
 
-•  Using GROUP BY with Grouping Sets:
+### Using GROUP BY with Grouping Sets:
 Write a query using grouping sets to calculate the total salary by department and the overall total salary.
---Code--
+~~~sql
 SELECT e.department, SUM(s.salary) AS total_salary
 FROM Employees e
 JOIN Salaries s
 ON e.employee_id = s.employee_id
 GROUP BY GROUPING SETS((e.department), ())
-----
+~~~
 
-•  Querying Data by Using Subqueries:
+### Querying Data by Using Subqueries:
 Write a query to list all employees whose salary is above the average salary using a subquery
 
-
-•  Using the EXISTS Keyword:
+### Using the EXISTS Keyword:
 Write a query to list all employees who have received a salary in 2024 using the EXISTS keyword.
-•  Using the ANY Keyword:
+
+### Using the ANY Keyword:
 Write a query to find employees whose salary is greater than the salary of any employee in the Engineering department.
-•  Using the ALL Keyword:
+
+### Using the ALL Keyword:
 Write a query to find employees whose salary is greater than the salary of all employees in the Finance department.
-•  Using Nested Subqueries:
+
+### Using Nested Subqueries:
 Write a query to list employees who earn more than the average salary of employees in the HR department using nested subqueries.
-•  Using Correlated Subqueries:
+
+### Using Correlated Subqueries:
 Write a query to find employees whose salary is above the average salary for their respective department using a correlated subquery.
-•  Using UNION:
+
+### Using UNION:
 Write a query to list all employee names from the HR and Finance departments using UNION.
-•  Using INTERSECT:
+
+### Using INTERSECT:
 Write a query to list employees who have worked in both Finance and Engineering using INTERSECT.
-•  Using EXCEPT:
+
+### Using EXCEPT:
 Write a query to list employees who are in Finance but not in HR using EXCEPT.
-•  Using MERGE:
+
+### Using MERGE:
 Write a query using MERGE to update employee salaries based on a new table of salary revisions. If the employee exists, update their salary; if not, insert the new employee and salary.
