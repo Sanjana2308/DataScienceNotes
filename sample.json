@@ -1,0 +1,20 @@
+[
+    {
+      "name": "John",
+      "age": 28,
+      "gender": "Male",
+      "address": {
+        "street": "123 Main St",
+        "city": "New York"
+      }
+    },
+    {
+      "name": "Jane",
+      "age": 32,
+      "gender": "Female",
+      "address": {
+        "street": "456 Elm St",
+        "city": "San Francisco"
+      }
+    }
+  ]
