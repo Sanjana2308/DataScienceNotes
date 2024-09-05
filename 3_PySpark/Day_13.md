@@ -15,6 +15,7 @@ spark = SparkSession.builder\
 ``` 
 
 2. Show file in the form of DataFrames
+
 ```python
 csv_file_path = "/content/sample_data/People.csv"
 df_csv = spark.read.format("csv").option("header", "true").load(csv_file_path)
