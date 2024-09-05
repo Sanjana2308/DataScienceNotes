@@ -275,4 +275,7 @@ The goal is to build an ETL pipeline using PySpark to transform the raw employee
 - The saved Parquet file should be structured for efficient retrieval and further analysis.
 - The aggregated data (average salary by gender) should provide insights into the company's pay structure across genders.
 
+```python
+
+```
 
