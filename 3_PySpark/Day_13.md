@@ -173,3 +173,106 @@ spark.catalog.dropTempView("people_temp_view")
 # Drop the global temporary view
 spark.catalog.dropGlobalTempView("people_global_view")
 ```
+
+## Creating a Database in Python
+```python
+# Create a new database in Spark SQL
+
+spark.sql("CREATE DATABASE IF NOT EXISTS my_database")
+ 
+# Use the created database
+
+spark.sql("USE my_database")
+ 
+# Verify that the database is being used
+
+spark.sql("SHOW DATABASES").show()
+```
+
+## ETL - Extract, Transform, Load
+1. Extract the Data
+```python
+import pandas as pd
+ 
+# Create a sample CSV data
+data = {
+    "name": ["John", "Jane", "Mike", "Emily", "Alex"],
+    "age": [28, 32, 45, 23, 36],
+    "gender": ["Male", "Female", "Male", "Female", "Male"],
+    "salary": [60000, 72000, 84000, 52000, 67000]
+}
+ 
+df = pd.DataFrame(data)
+ 
+# Save the DataFrame as a CSV file
+csv_file_path = "/content/sample_people.csv"
+df.to_csv(csv_file_path, index=False)
+ 
+# Confirm the CSV file is created
+print(f"CSV file created at: {csv_file_path}")
+```
+
+2. Transform the data 
+
+
+3. Load the Data
+
+## Hands-on Exercise on ETL
+### Problem Statement: Employee Salary Data Transformation and Analysis
+
+A company has collected a CSV file containing employee data, including names, ages, genders, and salaries. The company’s management is interested in conducting a detailed analysis of their workforce, focusing on the salary structure. They need to implement an ETL (Extract, Transform, Load) pipeline to transform the raw employee data into a more usable format for business decision-making.
+
+**Objective**:
+The goal is to build an ETL pipeline using PySpark to transform the raw employee data by applying filtering, creating new salary-related metrics, and calculating salary statistics by gender. After the transformations, the processed data should be saved in an efficient file format (Parquet) for further analysis and reporting.
+
+### **Task Requirements**:
+1. **Extract**:
+   - Load the employee data from a CSV file containing the following columns: `name`, `age`, `gender`, and `salary`.
+   
+2. **Transform**:
+   - **Filter**: Only include employees aged 30 and above in the analysis.
+   - **Add New Column**: Calculate a 10% bonus on the current salary for each employee and add it as a new column (`salary_with_bonus`).
+   - **Aggregation**: Group the employees by gender and compute the average salary for each gender.
+   
+3. **Load**:
+   - Save the transformed data (including the bonus salary) in a Parquet file format for efficient storage and retrieval.
+   - Ensure the data can be easily accessed for future analysis or reporting.
+
+### **Key Deliverables**:
+1. A PySpark-based ETL pipeline that performs the following:
+   - Loads the raw employee CSV data.
+   - Applies filtering, transformations, and aggregations.
+   - Saves the transformed data to a Parquet file.
+2. A summary report showing the following:
+   - The list of employees aged 30 and above with their original salary and salary with the 10% bonus.
+   - The average salary per gender.
+
+### **Sample Data**:
+
+| name  | age  | gender | salary  |
+|-------|------|--------|---------|
+| John  | 28   | Male   | 60000   |
+| Jane  | 32   | Female | 72000   |
+| Mike  | 45   | Male   | 84000   |
+| Emily | 23   | Female | 52000   |
+| Alex  | 36   | Male   | 67000   |
+
+### **Expected Output**:
+
+1. A filtered DataFrame that shows the employees aged 30 and above, with an additional column `salary_with_bonus` (10% bonus added to their salary).
+   
+2. A Parquet file containing the transformed data.
+
+3. A DataFrame showing the average salary by gender.
+
+### **Challenges**:
+- The raw data may contain employees below the age threshold of 30, who need to be filtered out.
+- Calculating new metrics (like salary bonuses) and ensuring data integrity during transformation.
+- Efficiently saving the transformed data in a format suitable for large-scale data analytics (e.g., Parquet).
+
+### **Success Criteria**:
+- The company should be able to retrieve the filtered and transformed data with accurate salary information, including the bonus.
+- The saved Parquet file should be structured for efficient retrieval and further analysis.
+- The aggregated data (average salary by gender) should provide insights into the company's pay structure across genders.
+
+
