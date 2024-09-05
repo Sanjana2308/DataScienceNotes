@@ -177,15 +177,12 @@ spark.catalog.dropGlobalTempView("people_global_view")
 ## Creating a Database in Python
 ```python
 # Create a new database in Spark SQL
-
 spark.sql("CREATE DATABASE IF NOT EXISTS my_database")
  
 # Use the created database
-
 spark.sql("USE my_database")
  
 # Verify that the database is being used
-
 spark.sql("SHOW DATABASES").show()
 ```
 
