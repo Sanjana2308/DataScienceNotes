@@ -306,18 +306,18 @@ df = pd.read_csv(csv_file_path)
 # Filter employees aged 30 and above
 df_filtered = df[df["age"] >= 30]
 
+print("\nFiltered Employee Data:")
+print(df_filtered)
+
 # Calculate bonus and add as a new column
 df_bonus = df
 df_bonus["salary_with_bonus"] = df_bonus["salary"] * 1.1
 
-# Group by gender and calculate average salary
-average_salary_by_gender = df.groupby("gender")["salary"].mean()
-
-print("\nFiltered Employee Data:")
-print(df_filtered)
-
 print("\nEmployee Data with Bonus:")
 print(df_bonus)
+
+# Group by gender and calculate average salary
+average_salary_by_gender = df.groupby("gender")["salary"].mean()
 
 print("Average salary by gender:")
 print(average_salary_by_gender)
@@ -491,6 +491,113 @@ def apply_filter(b):
 button.on_click(apply_filter)
 ```
 
+### DAG - Directed Acyclic Graph
+`Load on demand`: Loads data only when we say show data until then everything is in the logical memory.<br>
+When we say show then the master node sends the data to slave node where data is executed and then again returned to the master node.<br>
+Here, we are differing the load time by showing the data only when we use show or collect operation until then data is differentiated.
 
+The graph is `Directed` i.e., has edges and `Acyclic` i.e., the data is not interdependent.
 
+## Hands on Exercise
 
+### **Exercise: PySpark Data Transformations on Movie Data**
+
+#### **Objective:**
+You have a dataset containing movie details. The goal is to use PySpark to apply data transformations to derive insights.
+
+#### **Dataset**:
+
+Here’s a sample dataset of movies (save this as a CSV file if necessary):
+
+```csv
+movie_id,title,genre,rating,box_office,date
+1,Inception,Sci-Fi,8.8,830000000,2010-07-16
+2,The Dark Knight,Action,9.0,1004000000,2008-07-18
+3,Interstellar,Sci-Fi,8.6,677000000,2014-11-07
+4,Avengers: Endgame,Action,8.4,2797000000,2019-04-26
+5,The Lion King,Animation,8.5,1657000000,1994-06-15
+6,Toy Story 4,Animation,7.8,1073000000,2019-06-21
+7,Frozen II,Animation,7.0,1450000000,2019-11-22
+8,Joker,Drama,8.5,1074000000,2019-10-04
+9,Parasite,Drama,8.6,258000000,2019-05-30
+```
+
+### **Tasks**:
+
+1. **Load the Dataset**:
+   - Read the CSV file into a PySpark DataFrame.
+```python
+from pyspark.sql import SparkSession
+
+# Define the path to your CSV file
+csv_file_path = "/content/sample_data/movies.csv"
+
+# Create a SparkSession
+spark = SparkSession.builder\
+        .appName("CSVtoParquet")\
+        .getOrCreate()
+
+# Load the CSV file into a PySpark DataFrame
+df_movies = spark.read.format("csv").option("header", "true").option("inferSchema", "true").load(csv_file_path)
+
+# Show the DataFrame
+df_movies.show()
+```
+
+2. **Filter Movies by Genre**:
+   - Find all movies in the "Sci-Fi" genre.
+
+```python
+sci_fi_movies = df_movies.filter(df_movies.genre == "Sci-Fi")
+sci_fi_movies.show()
+```
+
+3. **Top-Rated Movies**:
+   - Find the top 3 highest-rated movies.
+
+```python
+top_rated_movies = df_movies.orderBy(df_movies.rating.desc()).limit(3)
+top_rated_movies.show()
+```
+
+4. **Movies Released After 2010**:
+   - Filter out all movies released after the year 2010.
+
+```python
+from pyspark.sql.functions import year
+
+movies_after_2010 = df_movies.filter(year(df_movies.date) > 2010)
+movies_after_2010.show()
+```
+
+5. **Calculate Average Box Office Collection by Genre**:
+   - Group the movies by `genre` and calculate the average box office collection for each genre.
+```python
+from pyspark.sql.functions import avg
+
+average_box_office_by_genre = df_movies.groupBy("genre").agg(avg("box_office").alias("average_box_office"))
+average_box_office_by_genre.show()
+```
+
+6. **Add a New Column for Box Office in Billions**:
+   - Add a new column that shows the box office collection in billions.
+
+```python
+df_movies = df_movies.withColumn("box_office_billions", df_movies.box_office / 1000000000)
+df_movies.show()
+```
+
+7. **Sort Movies by Box Office Collection**:
+   - Sort the movies in descending order based on their box office collection.
+
+```python
+sorted_movies_by_box_office = df_movies.orderBy(df_movies.box_office.desc())
+sorted_movies_by_box_office.show()
+```
+
+8. **Count the Number of Movies per Genre**:
+   - Count the number of movies in each genre.
+```python
+movie_count_by_genre = df_movies.groupBy("genre").count()
+movie_count_by_genre.show()
+```
