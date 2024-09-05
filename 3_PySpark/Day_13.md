@@ -385,3 +385,31 @@ df_transformed.write.partitionBy("date").mode("overwrite").parquet(output_path)
 partitioned_df = spark.read.parquet(output_path)
 partitioned_df.show()
 ```
+
+### Incremental Load
+Add new partitions only if necessary<br>
+`Incremental Update`: U dont have to overwrite everything u just need to add new things.
+<br>
+Append data only if necessary.<br>
+Using `.mode("append)` in the above code.
+
+```python
+# Full refresh load the entire dataset
+df_sales = spark.read.format("csv") \
+    .option("header", "true") \
+    .option("inferSchema", "true") \
+    .load("/content/sample_data/sales_data.csv")
+
+# Apply transformations (if necessary)
+df_transformed = df_sales.withColumn("total_sales", df_sales["quantity"]* df_sales["price"])
+
+# Full refresh: Partition the data by date and overwrite the existing data
+output_path = "/content/sample_data/partitioned_data"
+df_transformed.write.partitionBy("date").mode("append").parquet(output_path)
+
+# Verify partitioned data
+partitioned_df = spark.read.parquet(output_path)
+partitioned_df.show()
+```
+
+
