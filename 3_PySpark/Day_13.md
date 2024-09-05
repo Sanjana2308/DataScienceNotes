@@ -275,7 +275,113 @@ The goal is to build an ETL pipeline using PySpark to transform the raw employee
 - The saved Parquet file should be structured for efficient retrieval and further analysis.
 - The aggregated data (average salary by gender) should provide insights into the company's pay structure across genders.
 
+`Answer`: CSV File Creation
 ```python
+import pandas as pd
+ 
+# Create a sample CSV data
+data = {
+    "name": ["John", "Jane", "Mike", "Emily", "Alex"],
+    "age": [28, 32, 45, 23, 36],
+    "gender": ["Male", "Female", "Male", "Female", "Male"],
+    "salary": [60000, 72000, 84000, 52000, 67000]
+}
+ 
+df = pd.DataFrame(data)
+ 
+# Save the DataFrame as a CSV file
+csv_file_path = "/content/sample_people.csv"
+df.to_csv(csv_file_path, index=False)
+ 
+# Confirm the CSV file is created
+print(f"CSV file created at: {csv_file_path}")
+```
+
+1. Extract Data:
+```python
+# Load employee data from CSV
+csv_file_path = "/content/sample_people.csv"
+df = pd.read_csv(csv_file_path)
+```
+
+2. Transform Data:
+```python
+# Filter employees aged 30 and above
+df_filtered = df[df["age"] >= 30]
+
+# Calculate bonus and add as a new column
+df_bonus = df
+df_bonus["salary_with_bonus"] = df_bonus["salary"] * 1.1
+
+# Group by gender and calculate average salary
+average_salary_by_gender = df.groupby("gender")["salary"].mean()
+
+print("\nFiltered Employee Data:")
+print(df_filtered)
+
+print("\nEmployee Data with Bonus:")
+print(df_bonus)
+
+print("Average salary by gender:")
+print(average_salary_by_gender)
+```
+
+3. Load/save data to a Parquet file
+```python
+# Save transformed data in Parquet format
+parquet_file_path = "/content/employee_data.parquet"
+df.to_parquet(parquet_file_path, index=False)
+
+print("Parquet file created at:", parquet_file_path)
+```
+
+## Full Refresh with partitions
+Partition data into 3 partitions of data to work on the separately
+
+#### Write the data partition by date and give parquet as output
+`Parquet`: is a special type of File which converts the file into columner file format which is understood by tools like `Hadoop` and `Hive` and easy to process rather than JSON and CSV. Helps to deal with large data sets at a time.<br>
+When we deal with data we convert the data into log files and new log files are created of manageable size like 500Mb. It is easy to transfer over the internet. 
+<br>
+If we are dealing with a `Parquet` then ultimately we are dealing with Gb or Terabytes of data.
+
+`CSV File`:
+```csv
+transaction_id,date,customer_id,product,quantity,price,updated_at
+1,2024-09-01,101,Laptop,1,1000,2024-09-01 08:00:00
+2,2024-09-01,102,Phone,2,500,2024-09-01 09:00:00
+3,2024-09-02,103,Tablet,1,300,2024-09-02 10:00:00
+4,2024-09-02,104,Monitor,2,200,2024-09-02 11:00:00
+5,2024-09-03,105,Keyboard,1,50,2024-09-03 12:00:00
+6,2024-09-03,106,Mouse,3,30,2024-09-03 13:00:00
 
 ```
 
+1. Creaing a Spark Session
+```python
+from pyspark.sql import SparkSession
+
+# Initialize Spark Session
+spark = SparkSession.builder\
+        .appName("SparkSQLExample")\
+        .getOrCreate()
+```
+
+2. Converting to Parquet File
+```python
+# Full refresh load the entire dataset
+df_sales = spark.read.format("csv") \
+    .option("header", "true") \
+    .option("inferSchema", "true") \
+    .load("/content/sample_data/sales_data.csv")
+
+# Apply transformations (if necessary)
+df_transformed = df_sales.withColumn("total_sales", df_sales["quantity"]* df_sales["price"])
+
+# Full refresh: Partition the data by date and overwrite the existing data
+output_path = "/content/sample_data/partitioned_data"
+df_transformed.write.partitionBy("date").mode("overwrite").parquet(output_path)
+
+# Verify partitioned data
+partitioned_df = spark.read.parquet(output_path)
+partitioned_df.show()
+```
