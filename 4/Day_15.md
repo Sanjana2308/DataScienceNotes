@@ -62,3 +62,39 @@ df.groupBy("Age").count().display()
 ```
 
 **Kafka:** Used to build real-time streaming data pipelines and real-time streaming applications.
+<br>
+Used for bulk publish and messaging a lot of ppl at the same time.
+
+### Problem of LinkedIn in 2010
+![alt text](<../Images/New folder/14_6.png>)
+
+![alt text](<../Images/New folder/14_7.png>)
+
+### Kafka - Solution of LinkedIn Problem
+![alt text](<../Images/New folder/14_8.png>)
+
+![alt text](<../Images/New folder/14_9.png>)
+
+![alt text](<../Images/New folder/14_10.png>)
+
+### Message Processing
+Here **socket** is doing the work of **Kafka** 
+```python
+# Read streaming data from a socket (simulated source)
+lines = spark.readStream.format("socket").option("host", "localhost").option("port",9999).load()
+
+# Split the lines into words
+words = lines.selectExpr("explode(split(value, ' ')) as word")
+
+# Count the number of words
+wordCount = words.groupBy("word").count()
+
+# Start the streaming query to console
+query = wordCount.writeStream.outputMode("complete").format("console").start()
+
+# Await termination (keep it running)
+query.awaitTermination()
+```
+
+
+
