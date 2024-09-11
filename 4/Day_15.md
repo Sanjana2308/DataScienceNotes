@@ -54,3 +54,9 @@ df = spark.createDataFrame(data, ["Name", "Age"])
 # Display the DataFrame
 display(df)
 ```
+
+### Visualizing data
+```python
+# Display the data as a bar chart
+df.groupBy("Age").count().display()
+```
