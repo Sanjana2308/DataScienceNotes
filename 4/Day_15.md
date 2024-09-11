@@ -18,3 +18,39 @@
 
 ## Cluster
 Cluster is leveraged by PySpark to deal with data.
+
+### Steps to work on Microsoft Azure
+#### Creating a Azure Databrick
+1. Click on Azure Databricks
+
+2. Click on Create
+![alt text](<../Images/New folder/14_4.png>)
+
+3. Click on Review+Create
+
+#### Creating a Compute
+1. Click on **Compute** in the left corner.
+
+2. Click on Create Compute
+![alt text](<../Images/New folder/14_5.png>)
+
+3. Click on Create Compute in the bottom corner.
+
+#### Creating a Notebook
+
+1. Click on Create dropdown menu 
+
+2. Click on Notebook
+
+3. Start typing and change the **Notebook** name if u want.
+
+## Coding in Notebook
+### Creating a DataFrame
+```python
+# Create a Spark DataFrame
+data = [("John", 25), ("Jane", 30), ("Sam", 22)]
+df = spark.createDataFrame(data, ["Name", "Age"])
+
+# Display the DataFrame
+display(df)
+```
