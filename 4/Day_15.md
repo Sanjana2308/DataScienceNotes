@@ -13,3 +13,5 @@
 
 ### Machine Learning
 ![alt text](<../Images/New folder/14_3.png>)
+
+**Data Bricks** allow us o clean data and then this good data is sent to the machine model for machine learning. 
