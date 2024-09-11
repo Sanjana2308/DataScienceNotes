@@ -60,3 +60,5 @@ display(df)
 # Display the data as a bar chart
 df.groupBy("Age").count().display()
 ```
+
+**Kafka:** Used to build real-time streaming data pipelines and real-time streaming applications.
