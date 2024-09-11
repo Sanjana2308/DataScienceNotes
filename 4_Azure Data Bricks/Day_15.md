@@ -97,5 +97,102 @@ query = wordCount.writeStream.outputMode("complete").format("console").start()
 query.awaitTermination()
 ```
 
+### Tasks
 
+#### Task - 1 :Load the data set
+1. Load a CSV file into a Spark DataFrame in DataBricks.
+
+```csv
+FL_DATE,CARRIER,ORIGIN,DEST,DEP_DELAY,ARR_DELAY
+2023-09-01,AA,ATL,DFW,5,10
+2023-09-01,UA,LAX,JFK,-3,0
+2023-09-01,DL,SFO,ORD,7,15
+2023-09-02,AA,DFW,LAX,0,-5
+2023-09-02,UA,JFK,ATL,-2,0
+2023-09-02,DL,ORD,LAX,20,30
+2023-09-03,AA,LAX,SFO,10,12
+2023-09-03,UA,ATL,ORD,0,-10
+2023-09-03,DL,SFO,JFK,5,25
+2023-09-04,AA,JFK,LAX,0,0
+2023-09-04,UA,ORD,ATL,15,20
+2023-09-04,DL,LAX,SFO,-5,-10
+2023-09-05,AA,LAX,JFK,20,25
+2023-09-05,UA,DFW,ATL,0,0
+2023-09-05,DL,JFK,LAX,10,15
+```
+
+2. - Display the first 10 rows and inspect the schema of the dataset.
+```python
+
+```
+
+#### Task - 2: Data Cleaning
+1. **Handle missing values**: Drop rows with missing values from the dataset.
+   - Use `.na.drop()` to remove rows containing `null` values.
+   - Verify if there are any null values left using `.filter()`.
+
+   Example:
+   ```python
+   df_cleaned = df.na.drop()
+   df_cleaned.show()
+   ```
+
+2. **Filter rows**: Create a filtered DataFrame where arrival delays are greater than `0`.
+   
+   Example:
+   ```python
+   df_filtered = df.filter(df['ARR_DELAY'] > 0)
+   df_filtered.show()
+   ```
+
+#### Task - 3: Aggregation and Summary Statistics
+1. **Find the average arrival delay by airline**:
+   - Group by `CARRIER` and calculate the average of `ARR_DELAY`.
+
+   Example:
+   ```python
+   df.groupBy("CARRIER").agg({"ARR_DELAY": "avg"}).show()
+   ```
+
+2. **Count the number of flights per airline**:
+   - Group by `CARRIER` and count the total number of flights.
+
+   Example:
+   ```python
+   df.groupBy("CARRIER").count().show()
+   ```
+
+3. **Find the minimum and maximum delay** for all flights:
+   - Use `.agg()` to calculate both the minimum and maximum delay.
+
+   Example:
+   ```python
+   df.agg({"ARR_DELAY": "min", "ARR_DELAY": "max"}).show()
+   ```
+
+#### Task 4: Data Visualization
+
+1. **Plot the average delay per airline** using Databricks’ built-in visualization tools:
+   - Use `display()` to visualize the result from the average delay aggregation.
+
+   Example:
+   ```python
+   display(df.groupBy("CARRIER").agg({"ARR_DELAY": "avg"}))
+   ```
+
+2. **Visualize flight count by airline** using a bar chart:
+   - Use the `display()` function and convert the table into a bar chart in the UI.
+
+   Example:
+   ```python
+   display(df.groupBy("CARRIER").count())
+   ```
+
+3. **Plot the distribution of arrival delays** using a histogram:
+   - Group by `ARR_DELAY` and count, then use the Databricks visualization tool to create a histogram.
+
+   Example:
+   ```python
+   display(df.groupBy("ARR_DELAY").count())
+   ```
 
