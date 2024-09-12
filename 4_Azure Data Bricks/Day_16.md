@@ -409,3 +409,67 @@ EmployeeID,Name,Department,JoiningDate,Salary
   }
 ]
 ```
+
+### CSV file to DELTA
+```python
+# Move the file from Workspace to DBFS
+dbutils.fs.cp("file:/Workspace/Shared/employee_data.csv", "dbfs:/FileStore/employee_data.csv")
+
+# Load CSV data into a DataFrame
+df_employee = spark.read.format("csv").option("header", "true").load("dbfs:/FileStore/employee_data.csv")
+
+# Write DataFrame to Delta format
+df_employee.write.format("delta").save("/FileStore/delta/employee_data")
+```
+
+### JSON file to DELTA
+**Cell - 1**
+```python
+from pyspark.sql.types import StructType, StructField, IntegerType, StringType, DoubleType
+
+# Define schema for JSON File
+schema = StructType([
+    StructField("ProductID", IntegerType(), True),
+    StructField("ProductName", StringType(), True),
+    StructField("Category", StringType(), True),
+    StructField("Price", DoubleType(), True),
+    StructField("Stock", IntegerType(), True),
+])
+```
+
+**Cell - 2**
+```python
+# MOve the file from Workspace to DBFS
+dbutils.fs.cp("file:/Workspace/Shared/product_data.json", "dbfs:/FileStore/product_data.json")
+```
+
+**Cell - 3**
+```python
+# Load JSON data with schema
+df_product = spark.read.format("json").schema(schema).load("dbfs:/FileStore/product_data.json")
+df_product.show()
+```
+
+**Cell - 4**
+```python
+# Create a temp view for SQL Operations
+df_product.createOrReplaceTempView("product_view")
+
+# Create a Delta table from the view
+spark.sql("""
+    CREATE TABLE delta_product_table
+    USING DELTA
+    AS SELECT * FROM product_view    
+""")
+```
+
+```csv
+EmployeeID,Name,Department,JoiningDate,Salary
+1001,John Doe,HR,2021-01-15,58000
+1009,Sarah Adams,Marketing,2021-09-01,60000
+1010,Robert King,IT,2022-01-10,62000
+```
+
+![alt text](<../Images/Azure DataBricks/15_3.png>)
+
+
