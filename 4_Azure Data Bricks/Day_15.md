@@ -123,7 +123,12 @@ FL_DATE,CARRIER,ORIGIN,DEST,DEP_DELAY,ARR_DELAY
 
 2. - Display the first 10 rows and inspect the schema of the dataset.
 ```python
+# Move the file from Workspace to DBFS
+dbutils.fs.cp("file:/Workspace/Shared/data.csv", "dbfs:/FileStore/data.csv")
 
+# Load the file from DBFS
+df = spark.read.format("csv").option("header", "true").load("/FileStore/data.csv")
+df.show()
 ```
 
 #### Task - 2: Data Cleaning
