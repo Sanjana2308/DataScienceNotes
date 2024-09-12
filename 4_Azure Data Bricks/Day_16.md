@@ -301,8 +301,10 @@ df_expensive_electronics.show()
 df_csv = spark.read.format("csv").option("header",
 "true").load("/path_to_file/employee_data.csv")
 df_csv.show()
+
 # Filter and clean data
 df_cleaned = df_csv.filter(df_csv['Salary'] > 55000)
+
 # Write back to CSV
 df_cleaned.write.format("csv").option("header",
 "true").save("/path_to_output/cleaned_employee_data.csv")
@@ -313,8 +315,10 @@ df_cleaned.write.format("csv").option("header",
 # Load JSON data
 df_json = spark.read.format("json").load("/path_to_file/product_data.json")
 df_json.show()
+
 # Filter and clean data
 df_filtered = df_json.filter(df_json['Stock'] > 30)
+
 # Write back to JSON
 df_filtered.write.format("json").save("/path_to_output/filtered_product_data.json")
 ```
@@ -323,9 +327,11 @@ df_filtered.write.format("json").save("/path_to_output/filtered_product_data.jso
 ```python
 # Write DataFrame to Delta Table
 df_csv.write.format("delta").mode("overwrite").save("/path_to_delta/employee_delta")
+
 # Read Delta Table
 df_delta = spark.read.format("delta").load("/path_to_delta/employee_delta")
 df_delta.show()
+
 # Update Delta Table
 df_delta.createOrReplaceTempView("employee_delta")
 spark.sql("""
@@ -333,6 +339,7 @@ UPDATE employee_delta
 SET Salary = Salary * 1.05
 WHERE Department = 'IT'
 """)
+
 # Time Travel - Query a Previous Version
 df_version = spark.read.format("delta").option("versionAsOf",
 1).load("/path_to_delta/employee_delta")
@@ -344,3 +351,61 @@ df_version.show()
 - JSON data with filtered and aggregated product information.
 - Delta tables for both employee and product data with updated, deleted, and time-traveled versions.
 - SQL queries and results for Delta tables.
+
+## Database vs Data Warehouse vs Data Lake vs Delta Lake
+![alt text](<../Images/Azure DataBricks/15_2.png>)
+
+## 
+**employee_data.csv**:
+```csv
+EmployeeID,Name,Department,JoiningDate,Salary
+1001,John Doe,HR,2021-01-15,55000
+1002,Jane Smith,IT,2020-03-10,62000
+1003,Emily Johnson,Finance,2019-07-01,70000
+1004,Michael Brown,HR,2018-12-22,54000
+1005,David Wilson,IT,2021-06-25,58000
+1006,Linda Davis,Finance,2020-11-15,67000
+1007,James Miller,IT,2019-08-14,65000
+1008,Barbara Moore,HR,2021-03-29,53000
+```
+
+**product_data.json**:
+```json
+[
+  {
+    "ProductID": 101,
+    "ProductName": "Laptop",
+    "Category": "Electronics",
+    "Price": 1200,
+    "Stock": 35
+  },
+  {
+    "ProductID": 102,
+    "ProductName": "Smartphone",
+    "Category": "Electronics",
+    "Price": 800,
+    "Stock": 80
+  },
+  {
+    "ProductID": 103,
+    "ProductName": "Desk Chair",
+    "Category": "Furniture",
+    "Price": 150,
+    "Stock": 60
+  },
+  {
+    "ProductID": 104,
+    "ProductName": "Monitor",
+    "Category": "Electronics",
+    "Price": 300,
+    "Stock": 45
+  },
+  {
+    "ProductID": 105,
+    "ProductName": "Desk",
+    "Category": "Furniture",
+    "Price": 350,
+    "Stock": 25
+  }
+]
+```
