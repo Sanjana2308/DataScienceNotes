@@ -463,6 +463,8 @@ spark.sql("""
 """)
 ```
 
+## Working with Delta
+**employee_data2.csv**
 ```csv
 EmployeeID,Name,Department,JoiningDate,Salary
 1001,John Doe,HR,2021-01-15,58000
@@ -471,5 +473,7 @@ EmployeeID,Name,Department,JoiningDate,Salary
 ```
 
 ![alt text](<../Images/Azure DataBricks/15_3.png>)
+
+
 
 
