@@ -27,7 +27,7 @@ plt.show()
 ```
 
 **Output:**
-![Output](<../Images/Azure DataBricks/15_1.png>)
+![alt text](<../Images/Azure DataBricks/16_1.png>)
 
 ### Sales data
 ```csv
@@ -353,7 +353,7 @@ df_version.show()
 - SQL queries and results for Delta tables.
 
 ## Database vs Data Warehouse vs Data Lake vs Delta Lake
-![alt text](<../Images/Azure DataBricks/15_2.png>)
+![alt text](<../Images/Azure DataBricks/16_2.png>)
 
 ## 
 **employee_data.csv**:
@@ -472,7 +472,12 @@ EmployeeID,Name,Department,JoiningDate,Salary
 1010,Robert King,IT,2022-01-10,62000
 ```
 
-![alt text](<../Images/Azure DataBricks/15_3.png>)
+**Move the file from Workspace to DBFS**
+```python
+dbutils.fs.cp("file:/Workspace/Shared/employee_updates.csv", "dbfs:/FileStore/employee_updates.csv")
+```
+
+**Convert employee CSV data to Delta format**
 
 
 

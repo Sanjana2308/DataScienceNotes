@@ -32,3 +32,13 @@ Connects the data points together and optimizes the Delta Lake.
 #### Vacuum
 ![alt text](<../Images/Azure DataBricks/17_10.png>)
 
+### Assignment
+
+
+### Managed and Unmanaged Table
+
+![alt text](<../Images/Azure DataBricks/17_11.png>)
+
+**First change the cell language to SQL**
+![alt text](<../Images/Azure DataBricks/17_12.png>)
+
