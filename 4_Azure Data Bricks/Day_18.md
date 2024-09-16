@@ -148,3 +148,129 @@ customers_query = df_customers_transformed.writeStream \
 
 print("Started streaming query to write customer data to console...")
 ```
+
+### Jobs
+Gets trigerred at a particular time everyday and then it points to a notebook. <br>
+When we need continuously triggered data we create jobs.
+
+```python
+# Create sample sales data
+data = {
+    "OrderID": [1, 2, 3, 4],
+    "OrderDate":["2024-01-01 10:00:00", "2024-01-02 11:00:00", "2024-01-03 12:00:00", "2024-01-04 13:00:00"],
+    "CustomerID": ["C001", "C002", "C003", "C004"],
+    "Product": ["ProductA", "ProductB", "ProductC", "ProductD"],
+    "Quantity": [10, 20, 15, 5],
+    "Price": [100.0, 200.0, 150.0, 50.0]
+}
+
+# Convert to DataFrame
+df = pd.DataFrame(data)
+
+# Save to CSV
+csv_path = "dbfs/FileStore/sales_data.csv"
+df.to_csv(csv_path, index=False)
+
+print(f"Sample data saved to {csv_path}")
+```
+
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, to_timestamp
+
+# Initialize SparkSession
+spark = SparkSession.builder.appName("StructuredStreamingExample").getOrCreate()
+
+# Load data from CSV
+df = spark.read.format("csv").option("header", "true").load("/FileStore/sales_data.csv")
+
+print("Data Loaded successfully")
+
+# Transform the data: Add a new column for total amount
+df_transformed = df.withColumn("TotalAmount", col("Quantity").cast("int") * col("Price").cast("double"))
+
+print("Data Transformed successfully")
+
+# Write transformed data to a Delta table
+df_transformed.write.format("delta").mode("overwrite").save("/delta/sales_data")
+
+print("Transformed Data Written to Delta table successfully")
+```
+
+## Delta Live Table
+
+![alt text](<../Images/Azure DataBricks/18_1.png>)
+
+**-- Cell 1 --**
+```python
+import pandas as pd
+```
+
+**-- Cell 2 --**
+```python
+# Create sample sales data
+sales_data = {
+    "OrderID": [1, 2, 3, 4],
+    "OrderDate": ["2024-01-01 10:00:00", "2024-01-02 11:00:00", "2024-01-03 12:00:00", "2024-01-04 13:00:00"],
+    "CustomerID": ["C001", "C002", "C003", "C004"],
+    "Product": ["ProductA", "ProductB", "ProductC", "ProductD"],
+    "Quantity": [10, 20, 15, 5],
+    "Price": [100.0, 200.0, 150.0, 50.0]
+}
+
+# Convert to DataFrame
+df_sales = pd.DataFrame(sales_data)
+
+# Save as CSV
+csv_path = "dbfs/FileStore/sales_data_2.csv"
+df_sales.to_csv(csv_path, index=False)
+
+# Save as a Parquet
+parquet_path = "/dbfs/FileStore/sales_data.parquet"
+df_sales.to_parquet(parquet_path, index=False)
+print(f"Sample data saved to {csv_path} and {parquet_path}")
+```
+
+**-- Cell 3 --**
+```python
+# Initialize SparkSession
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, to_timestamp
+
+spark = SparkSession.builder.appName("DeltaExample").getOrCreate()
+
+# Load data from CSV
+df_sales = spark.read.format("csv").option("header", "true").load("/FileStore/sales_data.csv")
+
+# Transform the data: Add a new column for total amount
+df_transformed = df_sales.withColumn("TotalAmount", col("Quantity").cast("int") * col("Price").cast("double"))
+
+# Write transformed data to Delta table
+delta_table_path = "/delta/sales_data"
+df_transformed.write.format("delta").mode("overwrite").save(delta_table_path)
+
+print("Delta table created and data written successfully")
+```
+
+**-- Cell 4 --**
+```python
+import dlt
+```
+
+**-- Cell 5 --**
+```python
+@dlt.table
+def sales_data():
+    df = spark.read.format("delta").load(delta_table_path)
+    return df.select(
+        col("OrderID"),
+        col("OrderDate"),
+        col("CustomerID"),
+        col("Product"),
+        col("Quantity"),
+        col("Price"),
+        (col("Quantity").cast("int") * col("Price").cast("double")).alias("TotalAmount")
+    )
+
+print("Delta table created and data written successfully")
+```
