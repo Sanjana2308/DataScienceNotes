@@ -3,6 +3,8 @@
 ## Unity Catalog
 ![alt text](<../Images/Azure DataBricks/19_1.png>)
 
+![alt text](<../Images/Azure DataBricks/19_2.png>)
+
 ### Creating a Unity Caltalog
 ```sql
 %sql
@@ -154,3 +156,6 @@ WHERE Status = 'Active';
 3. **Table**: The third level in the namespace, representing the actual dataset where data resides. Tables can be partitioned, and data is stored in Delta Lake format, Parquet, or other supported formats.
 4. **View**: A virtual table generated from a SQL query. It does not physically store data but provides a way to query and organize subsets of data from tables.
 ---
+
+## Interview Preps
+![alt text](<../Images/Azure DataBricks/19_3.png>)
