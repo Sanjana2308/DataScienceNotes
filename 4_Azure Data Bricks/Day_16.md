@@ -472,13 +472,57 @@ EmployeeID,Name,Department,JoiningDate,Salary
 1010,Robert King,IT,2022-01-10,62000
 ```
 
+**-- Cell 1 --**<br>
 **Move the file from Workspace to DBFS**
 ```python
 dbutils.fs.cp("file:/Workspace/Shared/employee_updates.csv", "dbfs:/FileStore/employee_updates.csv")
 ```
 
+**-- Cell 2 --**<br>
 **Convert employee CSV data to Delta format**
+```python
+df_employee = spark.read.format("csv").option("header", "true").load("/FileStore/employee_data.csv")
 
+df_employee.write.format("delta").mode("overwrite").save("/delta/employee_data")
+```
+
+**Convert employee updates CSV data to Delta format**
+```python
+df_employee_updates = spark.read.format("csv").option("header", "true").load("/FileStore/employee_updates.csv")
+
+df_employee_updates.write.format("delta").mode("overwrite").save("/delta/employee_updates")
+```
+
+**-- Cell 3 --**<br>
+**Load delta tables**
+```python
+df_employee = spark.read.format("delta").load("/delta/employee_data")
+df_employee_updates = spark.read.format("delta").load("/delta/employee_updates")
+```
+
+**Create temporary views for SQL operations**
+```python
+df_employee.createOrReplaceTempView("delta_employee")
+df_employee_updates.createOrReplaceTempView("employee_updates")
+```
+
+**-- Cell 4 --**
+```python
+spark.sql("""
+  MERGE INTO delta_employee AS target
+  USING employee_updates AS source
+  ON target.EmployeeID = source.EmployeeID
+  WHEN MATCHED THEN UPDATE SET target.Salary = source.Salary, target.Department = source.Department
+  WHEN NOT MATCHED THEN INSERT (EmployeeID, Name, Department, JoiningDate, Salary)
+  VALUES (source.EmployeeID, source.Name, source.Department, source.JoiningDate, source.Salary)
+""")
+```
+
+**-- Cell 5 --**<br>
+**Query the Delta table to check if the data was updated or inserted correctly**
+```python
+spark.sql("SELECT * FROM delta_employee").show()
+```
 
 
 

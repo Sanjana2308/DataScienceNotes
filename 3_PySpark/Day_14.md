@@ -323,3 +323,234 @@ df = df.withColumn('active_day', when(df['steps'] > 10000, 'Active').otherwise('
 df.show()
 ```
 
+## Dataset: Music Streaming Data
+This dataset contains information about users' music streaming habits, including the
+song title, artist, duration of the song, streaming time, and user's location.
+
+### Sample Data:
+```csv
+user_id,song_title,artist,duration_seconds,streaming_time,location
+1,Blinding Lights,The Weeknd,200,2023-09-01 08:15:00,New York
+2,Shape of You,Ed Sheeran,240,2023-09-01 09:20:00,Los Angeles
+3,Levitating,Dua Lipa,180,2023-09-01 10:30:00,London
+1,Starboy,The Weeknd,220,2023-09-01 11:00:00,New York
+2,Perfect,Ed Sheeran,250,2023-09-01 12:15:00,Los Angeles
+3,Don't Start Now,Dua Lipa,200,2023-09-02 08:10:00,London
+1,Save Your Tears,The Weeknd,210,2023-09-02 09:00:00,New York
+2,Galway Girl,Ed Sheeran,190,2023-09-02 10:00:00,Los Angeles
+3,New Rules,Dua Lipa,230,2023-09-02 11:00:00,London
+```
+
+### Exercises:
+**Setting up the environment:**
+```python
+import pyspark
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName('Practice').getOrCreate()
+
+file_name = '/content/sample_data/4_music_streaming.csv'
+df = spark.read.csv(file_name, header=True, inferSchema=True)
+df.show()
+```
+
+**1. Calculate the Total Listening Time for Each User**
+- Group the data by user_id and calculate the total time spent streaming (in seconds) for each user.
+```python
+total_listening_time = df.groupBy('user_id').agg({'duration_seconds': 'sum'}).withColumnRenamed('sum(duration_seconds)', 'total_listening_time')
+total_listening_time.show()
+```
+
+**2. Filter Songs Streamed for More Than 200 Seconds**
+- Filter the dataset to show only the songs where the duration_seconds is greater than 200.
+```python
+songs_streamed_more_than_200 = df.filter(df['duration_seconds'] > 200)
+songs_streamed_more_than_200.show()
+```
+
+**3. Find the Most Popular Artist (by Total Streams)**
+- Group the data by artist and find the artist with the most streams (i.e., the highest number of song plays).
+```python
+most_popular_artist = df.groupBy('artist').count().withColumnRenamed('count', 'total_streams').orderBy('total_streams', ascending=False).limit(1)
+most_popular_artist.show()
+```
+
+**4. Identify the Song with the Longest Duration**
+- Identify the song with the longest duration in the dataset.
+```python
+song_with_longest_duration = df.orderBy('duration_seconds', ascending=False).limit(1)
+song_with_longest_duration.show()
+```
+
+**5. Calculate the Average Song Duration by Artist**
+- Group the data by artist and calculate the average song duration for each artist.
+```python
+average_song_duration_by_artist = df.groupBy('artist').agg({'duration_seconds': 'avg'}).withColumnRenamed('avg(duration_seconds)', 'average_song_duration')
+average_song_duration_by_artist.show()
+```
+
+**6. Find the Top 3 Most Streamed Songs per User**
+- For each user, find the top 3 most-streamed songs (i.e., songs they played most frequently).
+```python
+from pyspark.sql.window import Window
+from pyspark.sql.functions import row_number
+
+window_spec = Window.partitionBy('user_id').orderBy(df['duration_seconds'].desc())
+df_with_rank = df.withColumn('rank', row_number().over(window_spec))
+top_3_songs_per_user = df_with_rank.filter(df_with_rank['rank'] <= 3)
+top_3_songs_per_user.show()
+```
+
+**7. Calculate the Total Number of Streams per Day**
+- Group the data by streaming_time (by extracting the date) and calculate the total number of streams for each day.
+```python
+from pyspark.sql.functions import to_date
+
+df_with_date = df.withColumn('streaming_date', to_date(df['streaming_time']))
+total_streams_per_day = df_with_date.groupBy('streaming_date').count().withColumnRenamed('count', 'total_streams')
+total_streams_per_day.show()
+```
+
+**8. Identify Users Who Streamed Songs from More Than One Artist**
+- Find users who listened to songs by more than one artist.
+```python
+from pyspark.sql.functions import countDistinct
+
+users_with_multiple_artists = df.groupBy('user_id').agg(countDistinct('artist').alias('distinct_artists')).filter('distinct_artists > 1')
+users_with_multiple_artists.show()
+```
+
+**9. Calculate the Total Streams for Each Location**
+- Group the data by location and calculate the total number of streams for each location.
+```python
+total_streams_per_location = df.groupBy('location').count().withColumnRenamed('count', 'total_streams')
+total_streams_per_location.show()
+```
+
+**10. Create a New Column to Classify Long and Short Songs**
+- Add a new column song_length that classifies a song as "Long" if duration_seconds > 200 , otherwise classify it as "Short."
+```python
+from pyspark.sql.functions import when
+
+df_with_length = df.withColumn('song_length', when(df['duration_seconds'] > 200, 'Long').otherwise('Short'))
+df_with_length.show()
+```
+
+## Dataset: Retail Store Sales Data
+This dataset contains information about sales transactions at a retail store,
+including the product name, category, price, quantity sold, and sales date.
+
+### Sample Data:
+```csv
+transaction_id,product_name,category,price,quantity,sales_date
+1,Apple,Groceries,0.50,10,2023-09-01
+2,T-shirt,Clothing,15.00,2,2023-09-01
+3,Notebook,Stationery,2.00,5,2023-09-02
+4,Banana,Groceries,0.30,12,2023-09-02
+5,Laptop,Electronics,800.00,1,2023-09-03
+6,Pants,Clothing,25.00,3,2023-09-03
+7,Headphones,Electronics,100.00,2,2023-09-04
+8,Pen,Stationery,1.00,10,2023-09-04
+9,Orange,Groceries,0.60,8,2023-09-05
+10,Sneakers,Clothing,50.00,1,2023-09-05
+```
+
+### Exercises:
+**Cleaning up the environment:**
+```python
+import pyspark
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName('Practice').getOrCreate()
+
+file_name = '/content/sample_data/5_retail_store_sales.csv'
+df = spark.read.csv(file_name, header=True, inferSchema=True)
+df.show()
+```
+
+**1. Calculate the Total Revenue per Category**
+- Group the data by category and calculate the total revenue generated by each category. (Hint:Multiply price by quantity for each transaction.)
+```python
+from pyspark.sql.functions import col, sum
+
+df_new = df.withColumn('total_revenue', col('price') * col('quantity'))
+
+total_revenue_per_category = df_new.groupBy('category').agg(sum('total_revenue').alias('total_revenue'))
+total_revenue_per_category.show()
+```
+
+**2. Filter Transactions Where the Total Sales Amount is Greater Than $100**
+- Filter the dataset to show only transactions where the total sales amount (price * quantity) is greater than $100.
+```python
+filtered_transactions = df_new.filter(col('total_revenue') > 100)
+filtered_transactions.show()
+```
+
+**3. Find the Most Sold Product**
+- Identify the product with the highest total quantity sold across all transactions.
+```python
+most_sold_product = df.groupBy('product_name').agg(sum('quantity').alias('total_quantity'))
+most_sold_product = most_sold_product.orderBy(col('total_quantity').desc()).limit(1)
+most_sold_product.show()
+```
+
+**4. Calculate the Average Price per Product Category**
+- Group the data by category and calculate the average price of products in each category.
+```python
+from pyspark.sql.functions import avg
+
+average_price_per_category = df.groupBy('category').agg(avg('price').alias('average_price'))
+average_price_per_category.show()
+```
+
+**5. Find the Top 3 Highest Grossing Products**
+- Calculate the total revenue for each product and identify the top 3 products that generated the most revenue.
+```python
+total_revenue_per_product = df_new.groupBy('product_name').agg(sum('total_revenue').alias('total_revenue'))
+top_3_highest_grossing = total_revenue_per_product.orderBy(col('total_revenue').desc()).limit(3)
+top_3_highest_grossing.show()
+```
+
+**6. Calculate the Total Number of Items Sold per Day**
+- Group the data by sales_date and calculate the total quantity of items sold for each day.
+```python
+from pyspark.sql.functions import count
+
+total_items_sold_per_day = df.groupBy('sales_date').agg(sum('quantity').alias('total_quantity'))
+total_items_sold_per_day.show()
+```
+
+**7. Identify the Product with the Lowest Price in Each Category**
+- For each category, identify the product with the lowest price.
+```python
+from pyspark.sql.window import Window
+from pyspark.sql.functions import row_number
+
+window_spec = Window.partitionBy('category').orderBy('price')
+lowest_price_per_category = df.withColumn('row_num', row_number().over(window_spec))
+lowest_price_per_category = lowest_price_per_category.filter(col('row_num') == 1).drop('row_num')
+lowest_price_per_category.show()
+```
+
+**8. Calculate the Total Revenue for Each Product**
+- Group the data by product_name and calculate the total revenue generated by each product.
+```python
+total_revenue_per_product = df_new.groupBy('product_name').agg(sum('total_revenue').alias('total_revenue'))
+total_revenue_per_product.show()
+```
+
+**9. Find the Total Sales per Day for Each Category**
+- Group the data by sales_date and category to calculate the total sales for each category per day.
+```python
+from pyspark.sql.functions import sum
+
+total_sales_per_day_per_category = df.groupBy('sales_date', 'category').agg(sum('quantity').alias('total_quantity'))
+total_sales_per_day_per_category.show()
+```
+
+**10. Create a New Column for Discounted Price**
+- Add a new column called discounted_price that applies a 10% discount to the original price for each product ( price * 0.9 ).
+```python
+from pyspark.sql.functions import col
+
+df = df.withColumn('discounted_price', col('price') * 0.9)
+df.show()
+```

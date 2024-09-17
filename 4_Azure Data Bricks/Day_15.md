@@ -1,10 +1,10 @@
 # Day 15
 
 ## Databricks
-![alt text](<../Images/Azure DataBricks/14_1.png>)
+![alt text](<../Images/Azure DataBricks/15_1.png>)
 
 ## Working with Microsoft Azure
-![alt text](<../Images/Azure DataBricks/14_2.png>)
+![alt text](<../Images/Azure DataBricks/15_2.png>)
 
 1. **Resource group:** arranges data into buckets
 
@@ -13,7 +13,7 @@
 3. **Managed Resource Group:** It is much more efficient when we use this.
 
 ### Machine Learning
-![alt text](<../Images/Azure DataBricks/14_3.png>)
+![alt text](<../Images/Azure DataBricks/15_3.png>)
 
 **Data Bricks** allow us o clean data and then this good data is sent to the machine model for machine learning. 
 
@@ -25,7 +25,7 @@ Cluster is leveraged by PySpark to deal with data.
 1. Click on Azure Databricks
 
 2. Click on Create
-![alt text](<../Images/Azure DataBricks/14_4.png>)
+![alt text](<../Images/Azure DataBricks/15_4.png>)
 
 3. Click on Review+Create
 
@@ -33,7 +33,7 @@ Cluster is leveraged by PySpark to deal with data.
 1. Click on **Compute** in the left corner.
 
 2. Click on Create Compute
-![alt text](<../Images/Azure DataBricks/14_5.png>)
+![alt text](<../Images/Azure DataBricks/15_5.png>)
 
 3. Click on Create Compute in the bottom corner.
 
@@ -67,16 +67,16 @@ df.groupBy("Age").count().display()
 Used for bulk publish and messaging a lot of ppl at the same time.
 
 ### Problem of LinkedIn in 2010
-![alt text](<../Images/Azure DataBricks/14_6.png>)
+![alt text](<../Images/Azure DataBricks/15_6.png>)
 
-![alt text](<../Images/Azure DataBricks/14_7.png>)
+![alt text](<../Images/Azure DataBricks/15_7.png>)
 
 ### Kafka - Solution of LinkedIn Problem
-![alt text](<../Images/Azure DataBricks/14_8.png>)
+![alt text](<../Images/Azure DataBricks/15_8.png>)
 
-![alt text](<../Images/Azure DataBricks/14_9.png>)
+![alt text](<../Images/Azure DataBricks/15_9.png>)
 
-![alt text](<../Images/Azure DataBricks/14_10.png>)
+![alt text](<../Images/Azure DataBricks/15_10.png>)
 
 ### Message Processing
 Here **socket** is doing the work of **Kafka** 
