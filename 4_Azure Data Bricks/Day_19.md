@@ -1,5 +1,8 @@
 # Day 19
 
+# Assignments
+
+
 ## Unity Catalog
 ![alt text](<../Images/Azure DataBricks/19_1.png>)
 
