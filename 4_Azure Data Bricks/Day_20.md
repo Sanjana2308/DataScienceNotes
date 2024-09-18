@@ -176,19 +176,43 @@ capabilities such as **Data Discovery**, **Data Audit**, **Data Lineage**, and *
 manage all catalogs and schemas.
 
 **Task 2: Create Department-Specific Catalogs**
+
 Create separate catalogs for the following departments:
 - Marketing
+```sql
+CREATE CATALOG Marketing;
+```
+
 - Engineering
+```sql
+CREATE CATALOG Engineering;
+```
+
 - Operations
+```sql
+CREATE CATALOG Operations;
+```
 
 **Task 3: Create Schemas for Each Department**
 Inside each catalog, create specific schemas to store different types of data, e.g.:
 
 - For the Marketing catalog, create schemas such as ads_data and customer_data.
+```sql
+CREATE SCHEMA Marketing.ads_data;
+CREATE SCHEMA Marketing.customer_data;
+```
 
 - For the Engineering catalog, create schemas such as projects and development_data.
+```sql
+CREATE SCHEMA Engineering.projects;
+CREATE SCHEMA Engineering.development_data;
+```
 
 - For the Operations catalog, create schemas such as logistics_data and supply_chain.
+```sql
+CREATE SCHEMA Operations.logistics_data;
+CREATE SCHEMA Operations.supply_chain;
+```
 
 ---
 
@@ -198,8 +222,88 @@ Inside each catalog, create specific schemas to store different types of data, e
 
 Use sample datasets for each schema (create CSV or JSON files if required):
 - **Marketing - Ads Data**: Contains columns such as ad_id , impressions , clicks , cost_per_click .
+
+```sql
+CREATE TABLE Marketing.ads_data.ad_details (
+ad_id int,
+impressions int,
+clicks int,
+cost_per_click double);
+
+INSERT INTO Marketing.ads_data.ad_details (ad_id, impressions, clicks,
+cost_per_click)
+VALUES
+(1, 10000, 500, 0.25),
+(2, 15000, 750, 0.30),
+(3, 12000, 600, 0.20);
+```
+
+```sql
+CREATE TABLE Marketing.customer_data.customer_detail(
+cust_id int,
+ad_id int);
+
+INSERT INTO Marketing.customer_data.customer_detail (cust_id, ad_id)
+VALUES
+(101, 1),
+(102, 2),
+(103, 3);
+```
+
 - **Engineering - Projects**: Contains columns such as project_id , project_name , start_date , end_date .
+```sql
+CREATE TABLE Engineering.projects.project_data(
+project_id int,
+project_name string);
+
+INSERT INTO Engineering.projects.project_data (project_id, project_name)
+VALUES
+(1, 'Website Redesign'),
+(2, 'Mobile App Development'),
+(3, 'Database Optimization');
+```
+
+```sql
+CREATE TABLE Engineering.projects.development_data(
+dev_id int,
+project_id int,
+start_data date,
+end_date date);
+
+INSERT INTO Engineering.projects.development_data (dev_id, project_id,
+start_data, end_date)
+VALUES
+(1, 1, '2024-01-01', '2024-06-30'),
+(2, 2, '2024-03-15', '2024-12-31'),
+(3, 3, '2024-02-01', '2024-04-30');
+```
+
 - **Operations - Logistics**: Contains columns such as shipment_id , origin ,destination , status .
+```sql
+CREATE TABLE Operations.logistics_data.logistics (
+shipment_id int,
+status string);
+
+INSERT INTO Operations.logistics_data.logistics (shipment_id, status)
+VALUES
+(1001, 'Delivered'),
+(1002, 'In Transit'),
+(1003, 'Processing');
+```
+```sql
+INSERT INTO Operations.supply_chain.supply_chain_data (Id_no, origin, destination,
+shipment_id)
+VALUES
+(1, 'Chennai', 'Bangalore', 1001),
+(2, 'Chennai', 'Hyderabad', 1002),
+(3, 'Chennai', 'Mumbai', 1003);
+
+CREATE TABLE Operations.supply_chain.supply_chain_data(
+Id_no int,
+origin string,
+destination string,
+shipment_id int);
+```
 
 **Task 5: Create Tables from the Datasets**
 
@@ -216,10 +320,34 @@ Load the datasets into their respective schemas as tables.
 
 Create specific roles for each department and grant access to the relevant catalogs and schemas.
 - For example: create roles such as marketing_role , engineering_role , and operations_role .
+```sql
+CREATE ROLE marketing_role;
+CREATE ROLE engineering_role;
+CREATE ROLE operations_role;
+```
 
 **Task 7: Configure Fine-Grained Access Control**
 
 - Set up fine-grained access control, where users in the marketing department can only access customer-related data, while engineers can only access project data. Define permissions accordingly.
+
+**For Marketing role:**
+```sql
+GRANT SELECT ON TABLE Marketing.customer_data.customer_detail TO marketing_role;
+GRANT SELECT ON TABLE Marketing.ads_data.ad_details TO marketing_role;
+```
+
+**For Engineering role**:
+```sql
+GRANT SELECT ON TABLE Engineering.projects.project_data TO engineering_role;
+GRANT SELECT ON TABLE Engineering.projects.development_data TO engineering_role;
+```
+
+**For Operations role**:
+```sql
+GRANT SELECT ON TABLE operations.logistics_data.logistics TO operations_role;
+GRANT SELECT ON TABLE operations.supply_chain.supply_chain_data TO operations_role;
+```
+
 ---
 
 ### Data Lineage
@@ -228,6 +356,9 @@ Create specific roles for each department and grant access to the relevant catal
 - Enable data lineage for the tables created in Part 2.
 - Perform some queries (e.g., aggregate queries) on the datasets and examine how the data lineage feature traces the origin of data and tracks transformations.
 
+```
+Navigate to the databricks UI to Catalog Explorer to check the lineage of the tables we created
+```
 ---
 
 #### Data Audit
@@ -235,6 +366,9 @@ Create specific roles for each department and grant access to the relevant catal
 
 - Set up audit logging to track who is accessing or modifying the datasets.Access the audit logs to view data access patterns and identify who performed which actions on the data.
 
+```
+In the Admin Console, we can view the Audit logs for the operations performed.
+```
 ---
 
 ### Data Discovery
@@ -243,12 +377,39 @@ Create specific roles for each department and grant access to the relevant catal
 - Make sure that the appropriate descriptions and properties are added to each
 catalog, schema, and table.
 
+
+**For Marketing Tables:**
+```sql
+DESCRIBE TABLE Marketing.ads_data.ad_details;
+DESCRIBE TABLE Marketing.customer_data.customer_detail;
+SELECT COUNT(*) FROM marketing.ads_data.ad_details;
+SELECT COUNT(*) FROM marketing.customer_data.customer_detail;
+```
+
+<br>
+
+**For Engineering Tables**:
+```sql
+DESCRIBE TABLE Engineering.projects.project_data;
+DESCRIBE TABLE Engineering.projects.development_data;
+SELECT COUNT(*) FROM engineering.projects.project_data;
+SELECT COUNT(*) FROM engineering.projects.development_data;
+```
+
+**For Operations Tables**:
+```sql
+DESCRIBE TABLE Operations.logistics_data.logistics;
+DESCRIBE TABLE Operations.supply_chain.supply_chain_data;
+SELECT COUNT(*) FROM Operations.logistics_data.logistics;
+SELECT COUNT(*) FROM Operations.supply_chain.supply_chain_data;
+```
 ---
 
 ### Deliverables:
 - Department catalogs, schemas, and tables created in Unity Catalog.
 - Access roles and controls in place for each department.
 - Demonstrations of data governance capabilities such as Data Lineage, Data Audit, and Data Discovery.
+---
 
 ## Data Pipeline
 ![alt text](<../Images/Azure DataBricks/20_1.png>)
@@ -302,3 +463,4 @@ df.groupby().avg("Salary").show()
 
 print("Data analysis complete.")
 ```
+
