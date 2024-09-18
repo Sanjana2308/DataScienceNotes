@@ -414,7 +414,7 @@ SELECT COUNT(*) FROM Operations.supply_chain.supply_chain_data;
 ## Data Pipeline
 ![alt text](<../Images/Azure DataBricks/20_1.png>)
 
-Connect the notebooks using jobs and each job points to a notebook.
+Connect the notebooks by creating new tasks and each task points to a notebook.
 
 **Data_loading**
 ```python
