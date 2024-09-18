@@ -414,7 +414,14 @@ SELECT COUNT(*) FROM Operations.supply_chain.supply_chain_data;
 ## Data Pipeline
 ![alt text](<../Images/Azure DataBricks/20_1.png>)
 
-Connect the notebooks by creating new tasks and each task points to a notebook.
+### Creating a Data Pipeline
+- Create a new job
+- Create task 1 attach it to the cluster.
+- Write task name attach the notebook select cluster
+- Click on Create task
+- In the grid click on Add task
+- Click on notebook
+
 
 **Data_loading**
 ```python
@@ -463,6 +470,7 @@ df.groupby().avg("Salary").show()
 
 print("Data analysis complete.")
 ```
+Run jobs at end
 
 ## Missing File problem
 Designing pipeline that handles missing file.
@@ -541,3 +549,5 @@ try:
 except AnalysisException as e:
     print(f"Data not found or incomplete: {str(e)}. Skipping analysis")
 ```
+
+
