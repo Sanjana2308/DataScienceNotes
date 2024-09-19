@@ -332,21 +332,79 @@ GROUP BY GROUPING SETS((e.department), ())
 
 ### Querying Data by Using Subqueries:
 Write a query to list all employees whose salary is above the average salary using a subquery
+~~~sql
+SELECT e.employee_id, e.employee_name, s.salary
+FROM Employees e
+JOIN Salaries s
+ON e.employee_id = s.employee_id
+WHERE s.salary > (SELECT AVG(Salary) FROM Salaries)
+~~~
 
 ### Using the EXISTS Keyword:
 Write a query to list all employees who have received a salary in 2024 using the EXISTS keyword.
+~~~sql
+SELECT e.employee_id, e.employee_name, s.salary_date
+FROM Employees e
+JOIN Salaries s
+ON e.employee_id = s.employee_id
+WHERE EXISTS(SELECT 1 FROM Salaries s WHERE YEAR(s.salary_date) = 2024) 
+~~~
+
 
 ### Using the ANY Keyword:
 Write a query to find employees whose salary is greater than the salary of any employee in the Engineering department.
+~~~sql
+SELECT e.employee_name, s.salary
+FROM Employees e
+JOIN Salaries s
+ON e.employee_id = s.employee_id
+WHERE s.salary > ANY(SELECT salary FROM Salaries s WHERE e.department = 'Engineering')
+~~~
 
 ### Using the ALL Keyword:
 Write a query to find employees whose salary is greater than the salary of all employees in the Finance department.
+~~~sql
+SELECT e.employee_name, s.salary
+FROM Employees e
+JOIN Salaries s
+ON e.employee_id = s.employee_id
+WHERE s.salary > ALL(SELECT salary FROM Salaries s WHERE e.department = 'Finance')
+~~~
 
 ### Using Nested Subqueries:
 Write a query to list employees who earn more than the average salary of employees in the HR department using nested subqueries.
+~~~sql
+SELECT e.employee_id, e.employee_name, s.salary
+FROM Employees e
+JOIN Salaries s
+ON e.employee_id = s.employee_id
+WHERE s.salary > (
+	SELECT AVG(salary)
+	FROM Employees e
+	JOIN Salaries s
+	ON e.employee_id = s.employee_id
+	WHERE e.department = 'HR'
+	GROUP BY e.department
+)
+~~~
 
 ### Using Correlated Subqueries:
 Write a query to find employees whose salary is above the average salary for their respective department using a correlated subquery.
+~~~sql
+SELECT e.employee_name, e.department, s.salary
+FROM Employees e
+JOIN Salaries s
+ON e.employee_id = s.employee_id
+WHERE s.salary > (
+    SELECT AVG(salary)
+    FROM Employees e2
+	JOIN Salaries s2
+	ON e2.employee_id = s2.employee_id
+    WHERE e2.department = e.department
+);
+~~~
+
+`e2.department = e.department:` This correlates the subquery with the outer query. It ensures that the average salary is computed only for the current department being considered by the outer query.
 
 ### Using UNION:
 Write a query to list all employee names from the HR and Finance departments using UNION.
