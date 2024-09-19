@@ -303,10 +303,10 @@ where e.employee_id = s.employee_id
 ###  Using a Self Join:
 Write a query to list each employee and their manager's name using a self join on the Employees table.
 ~~~sql
-select e1.employee_name AS Employee_name, e2.employee_name AS Manager_name
-FROM Employees as e1
-LEFT JOIN Employees as e2
-ON e2.employee_id = e1.manager_id
+SELECT e1.employee_name AS EmployeeName, e2.employee_name AS ManagerName 
+FROM Employees e1
+LEFT JOIN Employees e2
+ON e1.manager_id = e2.employee_id
 ~~~
 
 ### Using GROUP BY with HAVING:
