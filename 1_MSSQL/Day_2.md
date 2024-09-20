@@ -408,12 +408,30 @@ WHERE s.salary > (
 
 ### Using UNION:
 Write a query to list all employee names from the HR and Finance departments using UNION.
+~~~sql
+SELECT * FROM Employee WHERE Department = 'HR'
+UNION
+SELECT * FROM Employee WHERE Department = 'Finance'
+~~~
 
 ### Using INTERSECT:
 Write a query to list employees who have worked in both Finance and Engineering using INTERSECT.
+~~~sql
+SELECT * FROM Employee WHERE Department = 'Finance'
+INTERSECT
+SELECT * FROM Employee WHERE Department = 'Engineering'
+~~~
 
 ### Using EXCEPT:
 Write a query to list employees who are in Finance but not in HR using EXCEPT.
+~~~sql
+SELECT * FROM Employee WHERE Department = 'Finanace'
+EXCEPT
+SELECT * FROM Employee WHERE Department = 'HR'
+~~~
 
 ### Using MERGE:
 Write a query using MERGE to update employee salaries based on a new table of salary revisions. If the employee exists, update their salary; if not, insert the new employee and salary.
+~~~sql
+
+~~~
