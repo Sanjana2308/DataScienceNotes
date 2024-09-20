@@ -39,7 +39,6 @@ ORDER BY TotalQuantitySold DESC
 ## Activity
 ![alt text](../Images/MSSQL/3_2.png)
 
-![alt text](../Images/MSSQL/3_3.png)
 
 1. 
 ~~~sql
@@ -120,7 +119,7 @@ HAVING SUM(o.Quantity) > 3
 ~~~
 
 ### Exercises
-![alt text](Images/3_3.png)
+![alt text](../Images/MSSQL/3_3.png)
 
 
 2. 
