@@ -113,7 +113,7 @@ INNER JOIN Products p2 ON p1.product_id <> p2.product_id
 ~~~sql
 SELECT p.Category, SUM(o.Quantity) AS TotalQuantity
 FROM Orders o
-INNER JOIN Products p ON p.product_id = p.product_id
+INNER JOIN Products p ON p.product_id = o.product_id
 GROUP BY p.Category
 HAVING SUM(o.Quantity) > 3
 ~~~
