@@ -310,10 +310,10 @@ __ERP__: Enterprise Resource Planning
 ![alt text](../Images/MSSQL/5_2.png)
 
 ### Star Schema							
-![Star Schema](Images/5_3.png)			
-										} Confusion
+![alt text](../Images/MSSQL/5_3.png)		
+										
 ### Snowflake Schema
-![Snowflake Schema](Images/5_3.png)
+![alt text](../Images/MSSQL/5_4.png)
 
 
 
