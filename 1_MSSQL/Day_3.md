@@ -144,13 +144,15 @@ WHERE ProductID IN(
 
 3. 
 ~~~sql
-select product_name
-FROM Products p
-WHERE EXISTS(
-	SELECT 1
-	FROM Orders o
-	WHERE o.product_id = p.product_id
+SELECT ProductName
+FROM Products
+WHERE ProductID IN(
+	SELECT ProductID
+	FROM Orders
+	GROUP BY ProductID
+	HAVING COUNT(ProductID) > 0
 )
+
 ~~~
 
 4. 
