@@ -167,12 +167,12 @@ WHERE Price > ANY(
 
 5. 
 ~~~sql
-select product_name
-FROM Products p
-WHERE EXISTS(
-	SELECT 1
-	FROM Orders o
-	WHERE o.product_id = p.product_id
+SELECT product_name
+FROM Products 
+WHERE Price > ALL(
+    SELECT Price
+    FROM Products
+    WHERE Category = 'Accessories'
 )
 ~~~
 
