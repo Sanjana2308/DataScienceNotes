@@ -206,6 +206,9 @@ WHERE EXISTS(SELECT 1 FROM Orders o WHERE o.user_id = u.user_id)
 4. __ANY__<br>
 Example - 4: Find the products from the table where the price of the product is greater than any of the Laptops
 
+The `ANY` operator returns true if any subquery values meet the condition.
+
+The `ALL` operator returns true if all subquery values meet the condition.
 ~~~sql
 SELECT p.product_name, p.price
 FROM products p
