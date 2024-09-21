@@ -141,6 +141,16 @@ ON e1.DepartmentID = e2.DepartmentID AND e1.ID < e2.ID
 ORDER BY e1.DepartmentID, e1.ID, e2.ID
 ~~~
 
+`ON e1.DepartmentId = e2.DepartmentId:` The condition ensures that both employees (e1 and e2) are from the same department (i.e., they share the same DepartmentId).
+
+`AND e1.ID < e2.ID`: This condition ensures that the pair of employees is listed in order such that the first employee (e1) has a smaller ID than the second employee (e2). This avoids pairing an employee with themselves and ensures each pair appears only once.
+
+`ORDER BY e1.DepartmentId, e1.ID, e2.ID`: 
+<br>This clause sorts the results by:
+
+- `e1.DepartmentId`: All pairs from the same department are grouped together.
+- `e1.ID`: Within each department, the results are sorted by the ID of the first employee in the pair.
+- `e2.ID`: If multiple pairs have the same first employee, they are sorted by the ID of the second employee.
 
 ## Subquery Exercises
 1. Write a query to find products whose price is higher than the average price of all products.
