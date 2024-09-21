@@ -2,17 +2,93 @@
 
 ## Math Functions
 
-![alt text](../Images/MSSQL/4_6.jpg)
+~~~sql
+SELECT ProductName, Price, ROUND(Price, 2) AS RoundedPrice
+FROM Products;
+~~~
 
-![alt text](../Images/MSSQL/4_1.png)
+~~~sql
+SELECT ProductName, Price, CEILING(Price) AS CeilingPrice
+FROM Products;
+~~~
+
+~~~sql
+SELECT ProductName, Price, FLOOR(Price) AS FloorPrice
+FROM Products;
+~~~
+
+~~~sql
+SELECT ProductName, Price, SQRT(Price) AS SquareRootPrice
+FROM Products;
+~~~
+
+~~~sql
+SELECT ProductName, Price, POWER(Price, 2) AS PriceSquared
+FROM Products;
+~~~
+
+~~~sql
+SELECT ProductName, Price, Price % 5 AS ModulusPrice
+FROM Products;
+~~~
+
+~~~sql
+SELECT ABS(MAX(Price) - MIN(Price)) AS PriceDifference
+FROM Products;
+~~~
+
+~~~sql
+SELECT ProductName, Price, ROUND(RAND()*100, 2) AS RandomDiscountPercentage
+FROM Products;
+~~~
+
+~~~sql
+SELECT ProductName, Price, LOG(Price) AS LogarithmPrice
+FROM Products;
+~~~
 
 ### Activity
 1. Apply a 15% discount, round the discounted price to 2 decimal places, and show both the ceiling and floor values of the final discounted price.
+
 Solution
-![alt text](../Images/MSSQL/4_2.png)
+
+~~~sql
+SELECT 
+	ProductName,
+	Price,
+	ROUND(Price * 0.85, 2) AS DiscountedPrice
+	CEILING(ROUND(Price * 0.85, 2)) AS CeilingDiscountedPrice
+	FLOOR(ROUND(Price * 0.85, 2)) AS FloorDiscountedPrice
+FROM Products;
+~~~
 
 ### Aggregate Function
-![alt text](../Images/MSSQL/4_3.png)
+
+```sql
+SELECT SUM(TotalAmount) AS TotalSales
+FROM Orders;
+```
+
+~~~sql
+SELECT AVG(Price) AS AveragePrice
+FROM Products;
+~~~
+
+~~~sql
+SELECT COUNT(OrderID) AS TotalOrders
+FROM Orders;
+~~~
+
+~~~sql
+SELECT MIN(Price) AS MinPrice, MAX(Price) AS MaxPrice
+FROM Products;
+~~~
+
+~~~sql
+SELECT Category, COUNT(ProductID) AS ProductCount
+FROM Products
+GROUP BY Category;
+~~~
 
 ## Exercise
 ![alt text](../Images/MSSQL/4_4.png)
