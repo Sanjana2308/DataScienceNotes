@@ -152,14 +152,13 @@ WHERE ProductID IN(
 	GROUP BY ProductID
 	HAVING COUNT(ProductID) > 0
 )
-
 ~~~
 
 4. 
 ~~~sql
 SELECT product_name
 FROM Products 
-WHERE Price > ALL(
+WHERE Price > ANY(
     SELECT Price
     FROM Products
     WHERE Category = 'Accessories'
