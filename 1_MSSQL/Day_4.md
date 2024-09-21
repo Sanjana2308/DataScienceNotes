@@ -1,7 +1,8 @@
 # Day 4
 
 ## Math Functions
-First SS in phone
+
+![alt text](../Images/MSSQL/4_6.jpg)
 
 ![alt text](../Images/MSSQL/4_1.png)
 
