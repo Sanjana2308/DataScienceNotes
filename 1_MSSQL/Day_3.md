@@ -132,13 +132,13 @@ GROUP BY GROUPING SETS ((p.Category), ())
 
 2. 
 ~~~sql
-SELECT product_name
+SELECT ProductName
 FROM Products
-WHERE product_id IN(
-	SELECT product_id
-	from Orders
-	GROUP BY product_id
-	HAVING COUNT(order_id) > 5
+WHERE ProductID IN(
+	SELECT ProductID
+	FROM Orders
+	GROUP BY ProductID
+	HAVING COUNT(ProductID) > 5
 )
 ~~~
 
