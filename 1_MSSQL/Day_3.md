@@ -121,6 +121,14 @@ HAVING SUM(o.Quantity) > 3
 ### Exercises
 ![alt text](../Images/MSSQL/3_3.png)
 
+1. 
+~~~sql
+SELECT p.Category, SUM(o.Quantity)
+FROM Orders o
+JOIN Products p
+ON p.ProductID = o.ProductID
+GROUP BY GROUPING SETS ((p.Category), ())
+~~~
 
 2. 
 ~~~sql
