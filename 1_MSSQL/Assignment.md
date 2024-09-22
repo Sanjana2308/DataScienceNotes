@@ -209,11 +209,11 @@ WHERE Salary >(
 ## Grouping and Summarizing Data Exercises<br>
 1. Group orders by customer and calculate the total amount spent by each customer.
 ~~~sql
-SELECT  c.Name, SUM(c.PurchaseAmt)
-FROM Orders o
-JOIN Customer c
-ON o.order_id = c.OrderId
-GROUP BY c.OrderId, PurchaseAmt, Name
+SELECT o.customer_id, c.Name, SUM(PurchaseAmt) 
+FROM Customer c
+JOIN Orders o
+ON c.OrderId = o.order_id
+GROUP BY o.customer_id, c.Name
 ~~~
 
 2. Group products by category and calculate the average price for each category.

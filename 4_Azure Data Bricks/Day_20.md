@@ -291,18 +291,18 @@ VALUES
 (1003, 'Processing');
 ```
 ```sql
+CREATE TABLE Operations.supply_chain.supply_chain_data(
+Id_no int,
+origin string,
+destination string,
+shipment_id int);
+
 INSERT INTO Operations.supply_chain.supply_chain_data (Id_no, origin, destination,
 shipment_id)
 VALUES
 (1, 'Chennai', 'Bangalore', 1001),
 (2, 'Chennai', 'Hyderabad', 1002),
 (3, 'Chennai', 'Mumbai', 1003);
-
-CREATE TABLE Operations.supply_chain.supply_chain_data(
-Id_no int,
-origin string,
-destination string,
-shipment_id int);
 ```
 
 **Task 5: Create Tables from the Datasets**
