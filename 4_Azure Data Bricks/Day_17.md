@@ -55,7 +55,7 @@ spark.sql("SELECT * FROM delta_employee").show()
 
 ### Fragmentation and Defragmentation
 
-![alt text](<../Images/Azure DataBricks/17_1.jpg>)
+![alt text](<../Images/Azure DataBricks/17_0.jpg>)
 
 ### Optimization
 **-- Cell 1 --**
