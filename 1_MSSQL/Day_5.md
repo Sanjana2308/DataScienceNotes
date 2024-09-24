@@ -330,6 +330,17 @@ It is diff from group by because in this we need to first group the rows but in 
   - **Running totals** (e.g., SUM() with OVER()): Calculate a cumulative sum across rows.
   - **Moving averages**: Compute the average over a specific number of previous rows.
 
+  - **Making Wndows** Using
+  
+	- 
+```sql
+OVER(
+	PARTITION BY
+	ORDER BY
+	ROWS/ RANGE BETWEEN
+)
+```
+
 
 
 
