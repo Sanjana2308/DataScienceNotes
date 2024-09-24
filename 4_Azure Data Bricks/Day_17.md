@@ -309,7 +309,7 @@ spark.sql("VACUUM delta_sales_table")
 
 ### Managed and Unmanaged Table
 
-![alt text](<../Images/Azure DataBricks/17_11.png>)
+![alt text](<../Images/Azure DataBricks/17_2.png>)
 
 **First change the cell language to SQL**
 ```sql
