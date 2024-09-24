@@ -319,6 +319,15 @@ __ERP__: Enterprise Resource Planning
 ### Snowflake Schema
 ![alt text](../Images/MSSQL/5_4.png)
 
+### Analytic functions
+Analytic functions in SQL are special types of functions that perform calculations across a set of rows that are related to each other. 
+
+- Look at "windows" of data: These functions often operate within a "window" or subset of data, like a rolling window of 5 rows.
+- Examples of tasks:
+  - **Ranking** (e.g., RANK()): Assign a rank to each row in a result set.
+  - **Running totals** (e.g., SUM() with OVER()): Calculate a cumulative sum across rows.
+  - **Moving averages**: Compute the average over a specific number of previous rows.
+
 
 
 
