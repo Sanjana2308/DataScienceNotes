@@ -196,8 +196,12 @@ HAVING SUM(o.TotalAmount) > 1000
 2. Cumulative Aggregations and Ranking in SQL Queries
 - Task: Create a cumulative sum of the `OrderAmount` for each customer to track the running total of how much each customer has spent.
 ~~~sql
-SELECT CustomerID, TotalAmount, SUM(TotalAmount), RANK() OVER(PARTITION BY CustomerID ORDER BY OrderDate) AS OrderAmount
-FROM Orders;
+SELECT CustomerID, TotalSales, RANK() OVER(ORDER BY TotalSales DESC)
+FROM (
+	SELECT CustomerID, SUM(TotalAmount) AS TotalSales
+	FROM Orders
+	GROUP BY CustomerID
+) AS Sales
 ~~~
 
 3. OVER and PARTITION BY Clause in SQL Queries

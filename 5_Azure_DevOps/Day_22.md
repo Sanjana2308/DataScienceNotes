@@ -113,5 +113,6 @@ Create this in Azure Devops ☝🏻☝🏻
 
 ### Hierarchy
 ```
-1.  Epic -> 2. Feature -> 3. User Story -> 4. Task
- ```
+1. Epic -> 2. Feature -> 3. User Story -> 4. Task
+```
+
