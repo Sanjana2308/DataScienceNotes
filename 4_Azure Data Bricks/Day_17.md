@@ -57,7 +57,7 @@ spark.sql("SELECT * FROM delta_employee").show()
 
 ![alt text](<../Images/Azure DataBricks/17_1.jpg>)
 
-### Optimize
+### Optimization
 **-- Cell 1 --**
 **Write the employee DataFrame to a Delta table**
 ```python
