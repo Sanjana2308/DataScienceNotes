@@ -320,7 +320,9 @@ __ERP__: Enterprise Resource Planning
 ![alt text](../Images/MSSQL/5_4.png)
 
 ### Analytic functions
-Analytic functions in SQL are special types of functions that perform calculations across a set of rows that are related to each other. 
+Analytic functions in SQL compute a value for each row based on other rows (window). 
+
+It is diff from group by because in this we need to first group the rows but in analytics functions we can compute a value for each individual row.
 
 - Look at "windows" of data: These functions often operate within a "window" or subset of data, like a rolling window of 5 rows.
 - Examples of tasks:
