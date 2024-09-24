@@ -111,4 +111,7 @@ Create this in Azure Devops ☝🏻☝🏻
    - Build the User Interface
    - Build the API Layer
 
-
+### Hierarchy
+```
+1.  Epic -> 2. Feature -> 3. User Story -> 4. Task
+ ```
