@@ -97,18 +97,32 @@ If there is a bug then we will fix it at that time in a conference room and the 
 #### Now
 - As you check in the code -- the code is taken -- Build -- and Deployed
 
-- CI -- Continuous Integration
+#### CI -- Continuous Integration
 
 Checkin -- Take the code -- Build -- Test -- Create a Package/ Artifact 
 
 Builds and gives us a package
 
-- CD -- Continuous Delivery / Deployment
-(Release)
-Take the package of CI -- Deploy the package to Azure 
+- Continuous integration (CI) is a practice development teams use to automate merging and testing code. CI helps to catch bugs early in the development cycle, making them less expensive to fix.
 
-CI/CD is commonly used during Website Development.
+
+#### CD -- Continuous Delivery / Deployment
+(Release)
+
+- Take the package of CI -- Deploy the package to Azure 
+
+- CI/CD is commonly used during Website Development.
+
+- Continuous delivery (CD) is the process of building, testing, and deploying code to one or more test or production environments.
 
 **Azure Pipelines**
 
-[Azure Pipelines Link](https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/what-is-azure-pipelines?view=azure-devops)
+- [Azure Pipelines Link](https://learn.microsoft.com/en-us/azure/devops/pipelines/get-started/what-is-azure-pipelines?view=azure-devops)
+
+
+- [DevOps for YAML Pipeline](https://www.azuredevopslabs.com/labs/azuredevops/yaml/)
+
+
+**Important for Future purposes**
+
+- [DevOps Lab](https://www.azuredevopslabs.com/)
